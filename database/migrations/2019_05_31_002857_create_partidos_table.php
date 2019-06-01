@@ -16,6 +16,10 @@ class CreatePartidosTable extends Migration
         Schema::create('partidos', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
+            $table->date('fecha_partido');
+            $table->string('hora_partido');
+            $table->bigInteger('fecha_id')->unsigned()->unique();
+            $table->foreign('fecha_id')->references('id')->on('fechas');
         });
     }
 

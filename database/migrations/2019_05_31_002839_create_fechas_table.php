@@ -15,6 +15,10 @@ class CreateFechasTable extends Migration
     {
         Schema::create('fechas', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->bigInteger('fixture_id')->unsigned()->unique();
+            $table->foreign('fixture_id')->references('id')->on('fixtures');
+            $table->date('fecha_inicio');
+            $table->date('fecha_fin');
             $table->timestamps();
         });
     }

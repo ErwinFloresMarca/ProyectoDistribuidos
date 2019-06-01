@@ -18,7 +18,7 @@ class CreateDelegadosTable extends Migration
             $table->string('user',30)->unique();
             $table->string('password',30);
             $table->bigInteger('persona_id')->unsigned()->unique();
-            $table->foreing('persona_id')->references('id')->on('personas');
+            $table->foreign('persona_id')->references('id')->on('personas');
             $table->timestamps();
         });
     }
