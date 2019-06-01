@@ -21,6 +21,13 @@ class CreatePartidosTable extends Migration
             $table->bigInteger('fecha_id')->unsigned()->unique();
             $table->foreign('fecha_id')->references('id')->on('fechas');
         });
+         Schema::create('equipo_partido', function (Blueprint $table) {
+            $table->bigInteger('equipo_id')->unsigned()->unique();
+            $table->foreign('equipo_id')->references('id')->on('equipos');
+            $table->bigInteger('partido_id')->unsigned()->unique();
+            $table->foreign('partido_id')->references('id')->on('partidos');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -30,6 +37,9 @@ class CreatePartidosTable extends Migration
      */
     public function down()
     {
+
+        Schema::dropIfExists('equipo_partido');
         Schema::dropIfExists('partidos');
+
     }
 }

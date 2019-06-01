@@ -18,7 +18,9 @@ class CreateEquiposTable extends Migration
             $table->timestamps();
             $table->string('nombre_equipo',15);
             $table->string('color',15);
-        });
+            $table->bigInteger('delegado_id')->unsigned()->unique();
+            $table->foreign('delegado_id')->references('id')->on('delegados');
+        });       
     }
 
     /**
