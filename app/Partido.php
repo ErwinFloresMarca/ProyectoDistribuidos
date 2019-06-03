@@ -3,9 +3,21 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Arbitro;
+use App\Equipo;
+use App\Actividad;
 
 class Partido extends Model
 {
     //
-    protected 
+    protected $table='partidos';
+    public function arbitro(){
+      return $this->belongsTo(Arbitro:class);
+    }
+    public function equipos(){
+      return $this->hasMany(Equipo::class);
+    }
+    public function actividad(){
+      return $this->belongsTo(Actividad::class);
+    }
 }
