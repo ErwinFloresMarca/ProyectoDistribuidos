@@ -18,15 +18,10 @@ class CreatePartidosTable extends Migration
             $table->timestamps();
             $table->date('fecha_partido');
             $table->string('hora_partido');
-            $table->bigInteger('fecha_id')->unsigned()->unique();
+            $table->bigInteger('arbitro_id')->unsigned();
+            $table->foreign('arbitro_id')->references('id')->on('arbitros');
+            $table->bigInteger('fecha_id')->unsigned();
             $table->foreign('fecha_id')->references('id')->on('fechas');
-        });
-         Schema::create('equipo_partido', function (Blueprint $table) {
-            $table->bigInteger('equipo_id')->unsigned()->unique();
-            $table->foreign('equipo_id')->references('id')->on('equipos');
-            $table->bigInteger('partido_id')->unsigned()->unique();
-            $table->foreign('partido_id')->references('id')->on('partidos');
-            $table->timestamps();
         });
     }
 
@@ -37,8 +32,6 @@ class CreatePartidosTable extends Migration
      */
     public function down()
     {
-
-        Schema::dropIfExists('equipo_partido');
         Schema::dropIfExists('partidos');
 
     }
