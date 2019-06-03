@@ -22,6 +22,12 @@ class CreatePartidosTable extends Migration
             $table->foreign('arbitro_id')->references('id')->on('arbitros');
             $table->bigInteger('fecha_id')->unsigned();
             $table->foreign('fecha_id')->references('id')->on('fechas');
+            $table->bigInteger('local_id')->unsigned();
+            $table->foreign('local_id')->references('id')->on('equipos');
+            $table->bigInteger('visitante_id')->unsigned();
+            $table->foreign('visitante_id')->references('id')->on('equipos');
+            $table->integer('goles_local');
+            $table->integer('goles_visitante');
         });
     }
 

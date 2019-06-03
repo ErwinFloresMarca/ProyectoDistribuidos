@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFechasTable extends Migration
+class CreateSeriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateFechasTable extends Migration
      */
     public function up()
     {
-        Schema::create('fechas', function (Blueprint $table) {
+        Schema::create('grupos', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('serie_id')->unsigned();
-            $table->foreign('serie_id')->references('id')->on('series');
-            $table->date('fecha_inicio');
-            $table->date('fecha_fin');
+            $table->string('nombre',20)->unique();
+            $table->bigInteger('fixture_id')->unsigned();
+            $table->foreign('fixture_id')->references('id')->on('fixtures');
+            $table->integer('tipo');
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ class CreateFechasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('fechas');
+        Schema::dropIfExists('grupos');
     }
 }

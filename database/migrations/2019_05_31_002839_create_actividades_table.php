@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSeriesTable extends Migration
+class CreateFechasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,13 @@ class CreateSeriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('series', function (Blueprint $table) {
+        Schema::create('actividades', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('nombre',20)->unique();
-            $table->bigInteger('fixture_id')->unsigned();
-            $table->foreign('fixture_id')->references('id')->on('fixtures');
+            $table->string('nombre',20);
+            $table->bigInteger('grupo_id')->unsigned();
+            $table->foreign('grupo_id')->references('id')->on('grupos');
+            $table->date('fecha_inicio');
+            $table->date('fecha_fin');
             $table->timestamps();
         });
     }
@@ -29,6 +31,6 @@ class CreateSeriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('series');
+        Schema::dropIfExists('actividades');
     }
 }
