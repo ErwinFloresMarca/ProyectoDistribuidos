@@ -20,8 +20,8 @@ class CreatePartidosTable extends Migration
             $table->string('hora_partido');
             $table->bigInteger('arbitro_id')->unsigned();
             $table->foreign('arbitro_id')->references('id')->on('arbitros');
-            $table->bigInteger('fecha_id')->unsigned();
-            $table->foreign('fecha_id')->references('id')->on('fechas');
+            $table->bigInteger('actividad_id')->unsigned();
+            $table->foreign('actividad_id')->references('id')->on('actividades');
             $table->bigInteger('local_id')->unsigned();
             $table->foreign('local_id')->references('id')->on('equipos');
             $table->bigInteger('visitante_id')->unsigned();
