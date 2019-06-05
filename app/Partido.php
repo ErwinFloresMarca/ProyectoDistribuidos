@@ -12,10 +12,10 @@ class Partido extends Model
     //
     protected $table='partidos';
     public function arbitro(){
-      return $this->belongsTo(Arbitro:class);
+      return $this->belongsTo(Arbitro::class);
     }
     public function equipos(){
-      return $this->hasMany(Equipo::class);
+      return $this->belongsToMany(Equipo::class);
     }
     public function actividad(){
       return $this->belongsTo(Actividad::class);

@@ -16,7 +16,7 @@ class CreateJugadoresTable extends Migration
         Schema::create('jugadores', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
-            $table->string('numero',2)->unique();
+            $table->string('numero',2);
             $table->bigInteger('persona_id')->unsigned()->unique();
             $table->foreign('persona_id')->references('id')->on('personas');
             $table->bigInteger('equipo_id')->unsigned()->unique();
