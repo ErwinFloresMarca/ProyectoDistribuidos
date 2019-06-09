@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Fixture;
+use App\Grupo;
+use App\Actividad;
+use App\Partido;
 class FixtureController extends Controller
 {
     /**
@@ -34,6 +37,7 @@ class FixtureController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
     public function store(Request $request)
     {
         //dd($request);
@@ -48,7 +52,9 @@ class FixtureController extends Controller
         $fix->estado=0;
         $fix->administrador_id=1;
         $fix->save();
-        return redirect('/fixture/nuevo')->with('estado','Fixture '.$request['nombre'].' fue creado Exitosamente!!!');
+        //  CrearSeries($fix->id,$request['series'],$request['equipos']);
+
+        //return redirect('/fixture/nuevo')->with('estado','Fixture '.$request['nombre'].' fue creado Exitosamente!!!');
     }
 
     /**

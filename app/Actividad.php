@@ -16,4 +16,7 @@ class Actividad extends Model
     public function partidos(){
       return $this->hasMany(Partido::class);
     }
+    public function CrearActividades($grupo_id,$equipos){
+      
+    }
 }

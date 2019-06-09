@@ -20,4 +20,7 @@ class Partido extends Model
     public function actividad(){
       return $this->belongsTo(Actividad::class);
     }
+    public function CrearPartidos($actividad_id,$rotacion,$equipos){
+      
+    }
 }
