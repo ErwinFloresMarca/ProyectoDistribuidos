@@ -15,7 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 
 });
-
+/*
 Route::get('url','Nombre_controlador@nombre_metodo');
 
 Route::get('url',function(){
@@ -47,3 +47,21 @@ Route::get('admin/index',function(){
 				'edad'=>'22');
 	return view('admin.index')->with('parametro',$datos);
 });
+*/
+
+Route::get('persona','PersonaController@index')->name('persona.index');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
