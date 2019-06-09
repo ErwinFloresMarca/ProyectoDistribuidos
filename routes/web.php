@@ -10,7 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+/*
 Route::get('/', function () {
     return view('welcome');
 
@@ -21,9 +21,9 @@ Route::get('url','Nombre_controlador@nombre_metodo');
 Route::get('url',function(){
 	return "";
 });
-
 Route::get('ejemplo',function(){
 	return "Mi primera ruta";
+
 });
 
 Route::post('enviar',function(){
@@ -46,4 +46,11 @@ Route::get('admin/index',function(){
 	$datos=array('nombre'=>'Yessica',
 				'edad'=>'22');
 	return view('admin.index')->with('parametro',$datos);
-});
+});*/
+
+Route::get('fixture','FixtureController@index')->name('fixture.index');
+Route::get('fixture/edit/{id}','FixtureController@edit')->name('fixture.edit');
+
+Route::get('fixture/nuevo','FixtureController@create')->name('fixture.nuevo');
+Route::post('fixture/guardar','FixtureController@store')->name('fixture.guardar');
+Route::post('fixture/eliminar/{id}','FixtureController@destroy')->name('fixture.eliminar');
