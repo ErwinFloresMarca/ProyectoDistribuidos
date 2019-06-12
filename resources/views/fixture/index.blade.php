@@ -20,9 +20,12 @@
         <legend class="w-auto"><h1 class='display-4 text-primary text-center'>Lista de Fixtures</h1></legend>
 
     <table class="table table-striped" >
-      <tr>
-        <td>No. </td> <td>Fixture</td> <td>Estado</td> <td>Opciones</td>
-      </tr>
+      <thead>
+        <tr>
+          <th>No. </th> <th>Fixture</th> <th>Estado</th> <th>Opciones</th>
+        </tr>
+      </thead>
+
       <?php
       use Illuminate\Support\Facades\Crypt;
       $i=1;
@@ -38,14 +41,12 @@
           <a href="/fixture/edit/ {{Crypt::encrypt($fixture->id)}}"
             class="btn btn-info btn-xs">editar</i>
           </a>
-          <form method="POST"
-               action="/fixture/eliminar"
-               style="display: inline;">
+          {{Form::open(array('method'=>'Post','route'=>'fixture.eliminar','style'=>'display: inline;'))}}
                <input type="hidden" name="id" value="{{Crypt::encrypt($fixture->id)}}">
              <button class="btn btn-danger btn-xs"
                 onclick="return confirm('Estas seguro de querer eliminar esta actividad')">Eliminar</i>
              </button>
-          </form>
+          {{Form::close()}}
         </td>
       </tr>
       @endforeach

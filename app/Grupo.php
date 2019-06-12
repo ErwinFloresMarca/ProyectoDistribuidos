@@ -15,9 +15,9 @@ class Grupo extends Model
         return $this->belongsTo(Fixture::class);
     }
 
-    public function CrearGrupos($fixture_id,$cant,$equipos){
+    public function CrearGrupos($fixture_id,$cant,$equipos,$cantPartidosDia,$horas,$fechaInicio,$arbitro_id){
       $n=intval(count($equipos)/$cant);
-      $res=(count($equipos)%$cant;
+      $res=(count($equipos))%$cant;
       $subEquipos;
       for($i=0;$i<$cant;$i++){
         $x=(0<$res--)?$n+1:$n;
@@ -29,17 +29,25 @@ class Grupo extends Model
         }
       }
 
-      if($cant>1){
-
-      }
-      else{
-        $serie=new Grupo;
-        $serie->fixture_id=$fixture_id;
-        $serie->tipo=0;
-        $serie->nombre='Clasificación';
-        $serie->save();
-        $act=new Actividad;
-        $act->CrearActividades($serie->id,$subEquipos[0]);
-      }
+      //crear series
+          $s='A';
+          for($i=0;$i<$cant;$i++){
+            $serie=new Grupo;
+            $serie->fixture_id=$fixture_id;
+            $serie->tipo=0;
+            $serie->nombre='Serie '.$s++;
+            $serie->save();
+            $act=new Actividad;
+            $act->CrearActividades($serie->id,$subEquipos[$i],$cantPartidosDia,$horas,$fechaInicio,$arbitro_id);
+          }
+          if($cant>1){
+            $serie=new Grupo;
+            $serie->fixture_id=$fixture_id;
+            $serie->tipo=1;
+            $serie->nombre='Clasificatoria';
+            $serie->save();
+            $act=new Actividad;
+            $act->CrearClasificatorias($serie->id,$cant,$cantPartidosDia,$fechaInicio);
+          }
     }
 }
