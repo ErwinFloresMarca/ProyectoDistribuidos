@@ -7,12 +7,37 @@
     <title>Crear Fixture</title>
   </head>
   <body>
+    <script language="JavaScript" type="text/JavaScript">
+      function suma(obj)
+      {
+          total=document.getElementById("numEquipos").value;
+          if(obj.checked)
+              total++;
+          else
+              total--;
+          txttotal=total+"";
+          if (txttotal=="0"){ txttotal="0";}
+          document.getElementById("numEquipos").value=txttotal;
+      }
+      function sumah(obj)
+      {
+          total=document.getElementById("cantPD").value;
+          if(obj.checked)
+              total++;
+          else
+              total--;
+          txttotal=total+"";
+          if (txttotal=="0"){ txttotal="0";}
+          document.getElementById("cantPD").value=txttotal;
+      }
+    </script>
     <div class="container">
       <br/>
       <div class="panel panel-default">
 
 			<div class="panel-body">
-    {{Form::open(array('method'=>'POST','route'=>'fixture.guardar'))}}
+
+    {{Form::open(array('method'=>'POST','route'=>'fixture.guardar','class'=>'needs-validation'))}}
 
       <fieldset   style="border:2px groove #00FFFF; background:#DDFFFF;
                           -moz-border-radius:20px;
@@ -23,7 +48,12 @@
 
       <div class="panel panel-default">
 			<div class="panel-body">
+        @if(session('estado'))
 
+          <div class="alert alert-success" role="alert">
+              {{ session('estado') }}
+          </div>
+        @endif
       <div class="form-row">
         <div class="col-md-4 mb-3">
           {{Form::label('nombre','Nombre de Fixture')}}
@@ -55,6 +85,77 @@
           @endif
         </div>
       </div>
+      <div class="form-row">
+        <div class="col-md-4 mb-3 was-validated ">
+          <?php $es=App\Equipo::all(); ?>
+          <center><h4 class='center'>
+            <span class="badge badge-secondary ">Equipos</span>
+            <span class="badge badge-danger " >
+              {{Form::text('numEquipo',count($es),['id'=>'numEquipos','size'=>'1','style'=>'border:none; background:inherit; font-weight: bold; color: white;','readonly'])}}
+            </span>
+          </h4></center>
+          <div class='table-responsive' style='height: 240px;'>
+          <table class="table table-striped table-sm" >
+            <tbody>
+
+              @foreach($es as $e)
+              <tr>
+                <td>
+                  <div class="custom-control custom-checkbox mb-3">
+                    {{Form::checkbox('equipos[]', $e->id , true,['id'=>'equipo'.$e->id,'class'=>'custom-control-input','onChange'=>'suma(this)','required'])}}
+                    <label class="custom-control-label" style='font-weight: bold;' for="equipo{{$e->id}}">{{$e->nombre_equipo}}</label>
+                  </div>
+                </td>
+              </tr>
+              @endforeach
+            </tbody>
+          </table>
+        </div>
+        </div>
+
+        <div class="col-md-4 mb-3">
+          <center><h4 class='center'>
+            <span class="badge badge-secondary ">Partidos Por Dia</span>
+            <span class="badge badge-danger " >
+              {{Form::text('cantPD','0',['id'=>'cantPD','size'=>'1','style'=>'border:none; background:inherit; font-weight: bold; color: white;','readonly'])}}
+            </span>
+          </h4></center>
+          <table class="table table-striped table-sm table-responsive">
+            <tbody>
+              <?php $hs=array('0'=>'08:00','1'=>'10:00','2'=>'14:00','3'=>'16:00','4'=>'18:00');  ?>
+              @for($i=0;$i<count($hs);$i++)
+              <tr> <td> <div class="custom-control custom-checkbox mb-3">
+                    {{Form::checkbox('horas[]', $hs[$i] , false,['id'=>'hora'.$i ,'class'=>'custom-control-input','onChange'=>'sumah(this)'])}}
+                    <label class="custom-control-label" style='font-weight: bold;' for='hora{{$i}}'>{{$hs[$i]}}</label>
+              </div> </td> </tr>
+              @endfor
+            </tbody>
+          </table>
+        </div>
+
+        <div class="col-md-4 mb-3 was-validated">
+          <div class="form-group">
+            <?php
+            $listArb=array();
+            $arbitros=App\Arbitro::all();
+            foreach ($arbitros as $arbitro){
+              $per=$arbitro->persona()->get()->last();
+              $listArb[$arbitro->id]=''.$per->nombre.' '.$per->ap_paterno;
+            } ?>
+            <h4 class='center'>
+              <span class="badge badge-secondary ">Arbitros</span>
+            </h4>
+            {{Form::select('arbitro_id', $listArb,null,['placeholder'=>'Selecione un arbitro','class'=>'custom-select','required'])}}
+            <div class="invalid-feedback">Seleccione un Arbitro</div>
+          </div>
+          <div class="form-group">
+            <h4 class='center'>
+              <span class="badge badge-secondary ">Fecha de Inicio</span>
+            </h4>
+            {{Form::date('fecha_inicio',Date('Y-m-d'),['required'])}}
+          </div>
+        </div>
+      </div>
       {{Form::button('Borrar',['type'=>"reset",'class'=>"btn btn-danger"])}}
       {{Form::button('Guardar',['type'=>"submit",'class'=>"btn btn-success"])}}
 
@@ -63,13 +164,7 @@
     </fieldset>
 
     {{Form::close()}}
-    @if(session('estado'))
-    <br>
-    <br>
-      <div class="alert alert-success" role="alert">
-          {{ session('estado') }}
-      </div>
-    @endif
+
     </div>
     </div>
   </div>

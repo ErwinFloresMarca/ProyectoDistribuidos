@@ -15,7 +15,7 @@ class CreateGruposTable extends Migration
     {
         Schema::create('grupos', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('nombre',20)->unique();
+            $table->string('nombre',20);
             $table->bigInteger('fixture_id')->unsigned();
             $table->foreign('fixture_id')->references('id')->on('fixtures');
             $table->integer('tipo');

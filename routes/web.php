@@ -55,12 +55,12 @@ Route::get('persona','PersonaController@index')->name('persona.index');
 //Fin Parte de Yessi
 
 //Inicio Parte de Erwin
-Route::get('fixture','FixtureController@index')->name('fixture.index');
-Route::get('fixture/edit/{id}','FixtureController@edit')->name('fixture.edit');
+Route::get('/fixture','FixtureController@index')->name('fixture.index');
+Route::get('/fixture/edit/{id}','FixtureController@edit')->name('fixture.edit');
 
-Route::get('fixture/nuevo','FixtureController@create')->name('fixture.nuevo');
-Route::post('fixture/guardar','FixtureController@store')->name('fixture.guardar');
-Route::post('fixture/eliminar/{id}','FixtureController@destroy')->name('fixture.eliminar');
+Route::get('/fixture/nuevo','FixtureController@create')->name('fixture.nuevo');
+Route::post('/fixture/guardar','FixtureController@store')->name('fixture.guardar');
+Route::post('/fixture/eliminar','FixtureController@destroy')->name('fixture.eliminar');
 //Fin Parte de Erwin
 
 //Inicio Parte de Marian

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use App\Fixture;
 use App\Grupo;
 use App\Actividad;
@@ -40,8 +41,7 @@ class FixtureController extends Controller
 
     public function store(Request $request)
     {
-        //dd($request);
-        //return;
+        
         $reglas=array(
           'nombre'=>'required|string|min:3|max:30',
           'series'=>'required|numeric|min:1|max:8'
@@ -53,8 +53,10 @@ class FixtureController extends Controller
         $fix->administrador_id=1;
         $fix->save();
         //  CrearSeries($fix->id,$request['series'],$request['equipos']);
-
-        //return redirect('/fixture/nuevo')->with('estado','Fixture '.$request['nombre'].' fue creado Exitosamente!!!');
+        $grupos=new Grupo;
+        $grupos->CrearGrupos($fix->id,$request['series'],$request['equipos'],
+                            count($request['horas']),$request['horas'],$request['fecha_inicio'],$request['arbitro_id']);
+        return redirect('/fixture/nuevo')->with('estado','Fixture '.$request['nombre'].' fue creado Exitosamente!!!');
     }
 
     /**
@@ -98,8 +100,11 @@ class FixtureController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
         //
+
+        Fixture::destroy(Crypt::decrypt($request['id']));
+        return redirect('fixture');
     }
 }
