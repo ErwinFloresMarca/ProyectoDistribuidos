@@ -34,5 +34,21 @@ Route::post('/fixture/eliminar','FixtureController@destroy')->name('fixture.elim
 //Fin Parte de Erwin
 
 //Inicio Parte de Marian
+Route::get('delegado','DelegadoController@index')->name('delegado.index');
 
+Route::get('delegado/nuevo/{id}','DelegadoController@create')->name('delegado.create');
+Route::post('delegado/guardar','DelegadoController@store')->name('delegado.guardar');
+
+Route::get('delegado/editar/{id}','DelegadoController@edit')->name('delegado.editar');
+Route::post('delegado/editar','DelegadoController@update')->name('delegado.actualizar');
+
+Route::get('delegado/eliminar/{id}','DelegadoController@destroy')->name('delegado.eliminar');
+
+Route::get('equipo','EquipoController@index')->name('equipo.index');
+
+Route::get('equipo/nuevo','EquipoController@create')->name('equipo.crear');
+Route::post('equipo/guardar','EquipoController@store')->name('equipo.guardar');
+
+Route::get('equipo/editar/{id}','EquipoController@edit')->name('equipo.editar');
+Route::post('equipo/actualizar','EquipoController@update')->name('equipo.actualizar');
 //Fin Parte de Marian
