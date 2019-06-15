@@ -8,24 +8,26 @@
 	<title>Personas que participaran en el fixture</title>
 </head>
 <body>
-	<div class="container">
+	<div class="container" class="panel-defauld">
 				<div class="panel-body">
-        <fieldset   style="border:3px groove #2B0E34; background:#DFFFFF;
+        <fieldset   style="border:1px groove #2B0E34; background:#DFFFFF;
                             -moz-border-radius:30px;
-                            border-radius: 30px;
-                            -webkit-border-radius: 25px;
-                            padding: 23px;">
-        <legend class="w-auto"><h1 class='display-4 text-primary text-center'>Lista de Personas</h1></legend>
+                            border-radius: 20px;
+                            -webkit-border-radius: 30px;
+                            padding: 23px;
+							">
+        <legend class="w-auto"><h1 class='display-4 text-info text-center'>Lista de Personas</h1></legend>
 		<table  class="table table-striped"  >
 			<thead>
 				<tr class="active">
-					<td>Nro.</td>
-					<td>C.I.</td>
-					<td>Nombre</td>
-					<td>Apellido Paterno</td>
-					<td>Apellido Materno</td>
-					<td>Fecha de Nacimiento</td>
-					<td>Correo Electronico</td>
+					<td><b>Nro.</b></td>
+					<td><b>C.I.</b></td>
+					<td><b>Nombre</b></td>
+					<td><b>Apellido Paterno</b></td>
+					<td><b>Apellido Materno</b></td>
+					<td><b>Fecha de Nacimiento</b></td>
+					<td><b>Correo Electronic</b>o</td>
+					<td><b>Opciones</b></td>
 				</tr>
 			</thead>
 			<tbody>
@@ -39,6 +41,9 @@
 					<td> {{ $persona -> ap_materno }} </td>
 					<td> {{ $persona -> fecha_nacimiento}} </td>
 					<td> {{ $persona -> email }} </td>
+					<td> <a href="persona/edit/{{$persona->id}}" class="btn btn-primary"> Editar Datos </a> 
+					<a href="persona/eliminar/{{ $persona->id}}" class="btn btn-danger btn-primary"  onclick="return confirm ('¿Desea eliminar a esta persona?')"> Eliminar </a>
+				    </td>
 				</tr>
 				@endforeach
 			</tbody>

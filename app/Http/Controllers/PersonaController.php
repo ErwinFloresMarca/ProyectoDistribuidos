@@ -23,8 +23,8 @@ class PersonaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        return view('persona.create');
+    {return view('persona.create');
+        
 
     }
 
@@ -37,24 +37,33 @@ class PersonaController extends Controller
     public function store(Request $request)
     {
            $reglas=array(
-            'ci'=>'required|numeric|min:1|max:8',
-          'nombre'=>'required|string|min:3|max:30',
-          'ap_paterno'=>'required|string|min:5|max:15',
-          'ap_materno'=>'required|string|min:5|max:15',
-          'fecha_nacimiento'=>'required|date',
-           'email' => 'required|E-Mail',
+              'ci'=>'required|numeric|min:100000|max:999999',
+              'nombre'=>'required|string|min:3|max:30',
+              'ap_paterno'=>'required|string|min:4|max:15',
+              'ap_materno'=>'required|string|min:4|max:15',
+              'fecha_nacimiento'=>'required|date',
+              'email' => 'required|E-Mail',
+             );
+           $mensaje = array(
+            'ci.min' => 'el C.I. debe tener al menos 6 digitos',
+            'ci.required' => 'El campo C.I. es necesario llenarlo',
+            'nombre.required' => 'El campo Nombre es necesario llenarlo',
+            'ap_materno.required' => 'El campo Apellido Materno es necesario llenarlo',
+            'email.required' => 'Debe colocar su correo electronico',);
 
-        );
-        $this->validate($request,$reglas);
-        $per=new Persona;
-        $per->ci=$request['ci'];
-        $per->nombre=$request['nombre'];
-        $per->ap_paterno=$request['ap_paterno'];
-        $per->ap_materno=$request['ap_materno'];
-        $per->fecha_nacimiento=$request['fecha_nacimiento'];
-        $per->email=$request['email'];
-        $per->save();
-        return redirect('persona');
+           $errores = $this->validate($request,$reglas,$mensaje);
+           if ($errores) 
+           {
+            $per=new Persona;
+            $per->ci=$request['ci'];
+            $per->nombre=$request['nombre'];
+            $per->ap_paterno=$request['ap_paterno'];
+            $per->ap_materno=$request['ap_materno'];
+            $per->fecha_nacimiento=$request['fecha_nacimiento'];
+            $per->email=$request['email'];
+            $per->save();
+            return redirect('persona');
+           }
     }
 
     /**
@@ -75,8 +84,9 @@ class PersonaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
-        //
+    { 
+        $persona = Persona::find($id);
+        return view('persona.edit')->with('persona',$persona);
     }
 
     /**
@@ -86,9 +96,35 @@ class PersonaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request )
     {
         //
+            $reglas=array(
+              
+              'nombre'=>'required|string|min:3|max:30',
+              'ap_paterno'=>'required|string|min:4|max:15',
+              'ap_materno'=>'required|string|min:4|max:15',
+              'fecha_nacimiento'=>'required|date',
+              
+             );
+           $mensaje = array(
+            'nombre.required' => 'El campo Nombre es necesario llenarlo',
+            'ap_materno.required' => 'El campo Apellido Materno es necesario llenarlo',);
+
+           $this->validate($request,$reglas,$mensaje);
+           
+           //dd($request);
+            $per = Persona::find($request['id']);
+            //dd($per);
+            //return;
+            $per->nombre=$request->input('nombre');
+            $per->ap_paterno=$request->input('ap_paterno');
+            $per->ap_materno=$request->input('ap_materno');
+            $per->fecha_nacimiento=$request->input('fecha_nacimiento');
+            $per->save();
+            return redirect('persona');
+            
+           
     }
 
     /**
@@ -99,6 +135,7 @@ class PersonaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Persona::destroy($id);
+        return redirect('persona');
     }
 }

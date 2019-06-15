@@ -16,12 +16,26 @@ Route::get('/', function () {
 
 });
 //Inicio Parte de Yessi
+//parte de persona 
 Route::get('persona','PersonaController@index')->name('persona.index');
 Route::get('persona/nuevo','PersonaController@create')->name('persona.nuevo');
 Route::post('persona/guardar','PersonaController@store')->name('persona.guardar');
 Route::get('persona/edit/{id}','PersonaController@edit')->name('persona.edit');
-Route::post('persona/eliminar/{id}','PersonaController@destroy')->name('persona.eliminar');
-
+Route::post('persona/edit' , 'PersonaController@update')->name('persona.actualizar');
+Route::get('persona/eliminar/{id}','PersonaController@destroy');
+//parte de administrador 
+Route::get('administrador' , 'AdministradorController@index')->name('administrador.index');
+Route::get('administrador/nuevo/{id}' , 'AdministradorController@create')->name('administrador.nuevo');
+Route::get('administrador/edit/{id}' , 'AdministradorController@edit')->name('administrador.edit');
+Route::post('administrador/edit' , 'AdministradorController@update')->name('administrador.actualizar');
+Route::post('administrador/guardar' , 'AdministradorController@store')->name('administrador.guardar');
+Route::get('administrador/eliminar/{id}' , 'AdministradorController@destroy');
+//parte de arbitro 
+Route::get('arbitro' , 'ArbitroController@index') -> name('arbitro.index');
+Route::get('arbitro/nuevo/{id}','ArbitroController@create') ->name('arbitro.nuevo');
+Route::get('arbitro/edit/{id}' , 'ArbitroController@edit')->name('arbitro.edit');
+Route::post('arbitro/guardar' , 'ArbitroController@store') -> name('arbitro.guardar');
+Route::get('arbitro/eliminar/{id}' , 'ArbitroController@destroy') ;
 //Fin Parte de Yessi
 
 //Inicio Parte de Erwin
