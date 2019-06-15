@@ -27,10 +27,23 @@ Route::post('persona/eliminar/{id}','PersonaController@destroy')->name('persona.
 //Inicio Parte de Erwin
 Route::get('/fixture','FixtureController@index')->name('fixture.index');
 Route::get('/fixture/edit/{id}','FixtureController@edit')->name('fixture.edit');
-
+Route::post('/fixture/actualizar','FixtureController@update')->name('fixture.actualizar');
 Route::get('/fixture/nuevo','FixtureController@create')->name('fixture.nuevo');
 Route::post('/fixture/guardar','FixtureController@store')->name('fixture.guardar');
 Route::post('/fixture/eliminar','FixtureController@destroy')->name('fixture.eliminar');
+Route::get('/grupo/{id}','GrupoController@index')->name('grupo.index');
+Route::get('/grupo/edit/{id}','GrupoController@edit')->name('grupo.edit');
+Route::post('/grupo/actualizar','GrupoController@update')->name('grupo.actualizar');
+Route::get('/grupo/nuevo','GrupoController@create')->name('grupo.nuevo');
+Route::post('/grupo/guardar','GrupoController@store')->name('grupo.guardar');
+Route::post('/grupo/eliminar','GrupoController@destroy')->name('grupo.eliminar');
+
+Route::get('/actividad/{id}','ActividadController@index')->name('actividad.index');
+Route::get('/actividad/edit/{id}','ActividadController@edit')->name('actividad.edit');
+Route::post('/actividad/actualizar','ActividadController@update')->name('actividad.actualizar');
+Route::get('/actividad/nuevo','ActividadController@create')->name('actividad.nuevo');
+Route::post('/actividad/guardar','ActividadController@store')->name('actividad.guardar');
+Route::post('/actividad/eliminar','ActividadController@destroy')->name('actividad.eliminar');
 //Fin Parte de Erwin
 
 //Inicio Parte de Marian
