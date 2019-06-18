@@ -15,10 +15,13 @@ class Grupo extends Model
         return $this->belongsTo(Fixture::class);
     }
 
-    public function CrearGrupos($fixture_id,$cant,$equipos,$cantPartidosDia,$horas,$fechaInicio,$arbitro_id){
+    public function CrearGrupos($fixture_id,$cant,$equipos,$cantPartidosDia,$horas,$fechaInicio,$arbts){
       $n=intval(count($equipos)/$cant);
       $res=(count($equipos))%$cant;
       $subEquipos;
+      $na=intval(count($arbts)/$cant);
+      $resa=(count($arbts))%$cant;
+      $abitros;
       for($i=0;$i<$cant;$i++){
         $x=(0<$res--)?$n+1:$n;
         for($j=0;$j<$x;$j++){
@@ -26,6 +29,13 @@ class Grupo extends Model
           $subEquipos[$i][$j]=$equipos[$pos];
           unset($equipos[$pos]);
           $equipos = array_values($equipos);
+        }
+        $xa=(0<$resa--)?$na+1:$na;
+        for($j=0;$j<$xa;$j++){
+          $pos=rand(0,count($arbts)-1);
+          $arbitros[$i][$j]=$arbts[$pos];
+          unset($arbts[$pos]);
+          $arbts = array_values($arbts);
         }
       }
 
@@ -38,7 +48,7 @@ class Grupo extends Model
             $serie->nombre='Serie '.$s++;
             $serie->save();
             $act=new Actividad;
-            $act->CrearActividades($serie->id,$subEquipos[$i],$cantPartidosDia,$horas,$fechaInicio,$arbitro_id);
+            $act->CrearActividades($serie->id,$subEquipos[$i],$cantPartidosDia,$horas,$fechaInicio,$arbitros[$i]);
           }
           if($cant>1){
             $serie=new Grupo;

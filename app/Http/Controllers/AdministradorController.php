@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
+use App\Persona;
+use App\Administrador;
 class AdministradorController extends Controller
 {
     /**
@@ -13,7 +15,19 @@ class AdministradorController extends Controller
      */
     public function index()
     {
-        //
+        if (request()->has('empty')) {
+            $administrador = [];
+        }else {
+         $administrador = DB::table('personas') ->join('administradores' , 'administradores.persona_id','personas.id') -> select('nombre','ap_paterno','ap_materno','administradores.id')->get();
+         $persona= DB::table('personas')
+                     ->select('personas.id as ida','nombre','ap_paterno','ap_materno')
+                     ->whereNotIn('id', DB::table('administradores')->select('administradores.persona_id'))
+                     ->get();
+        }
+         return view('administrador.index')->with('datos',array(
+                                                        'administradores'=>$administrador,
+                                                        'personas'=>$persona));
+
     }
 
     /**
@@ -23,7 +37,10 @@ class AdministradorController extends Controller
      */
     public function create()
     {
-        //
+        $personas = Persona::find('id');
+        //dd($personas);
+        //return;
+        return view('administrador.create')->with('personas',$personas);
     }
 
     /**
@@ -34,7 +51,27 @@ class AdministradorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $reglas = array(
+            'user' => 'required|alpha',
+            'password' => 'required|alpha_num',
+            'password_confir' => 'required|same:password' 
+            );
+        $mensajes = array(
+            'user.required' => 'El campo nombre de administrador es obligatorio',
+            'user.alpha' => 'El nombre de administrador no debe contener espacios',
+            'password.required' => 'La contraseña es obligatoria',
+            'password.alpha_num' => 'La contraseña debe tener números y letras',
+            'password_confir.required' => 'La confirmación es requerida',
+            'password_confir.same' => 'las contraseñas no coinciden', );
+         $this->validate($request,$reglas,$mensajes);
+        
+            $administrador = new administrador;
+            $administrador->user = $request['user'];
+            $administrador->password = $request['password'];
+            $administrador->persona_id = $request['id']; 
+            $administrador->save();
+            return redirect('administrador');
+        
     }
 
     /**
@@ -56,7 +93,8 @@ class AdministradorController extends Controller
      */
     public function edit($id)
     {
-        //
+        $adm = Administrador::find($id);
+        return view('administrador.edit')-> with('administrador', $adm);
     }
 
     /**
@@ -66,9 +104,28 @@ class AdministradorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+         $reglas = array(
+            'user' => 'required|alpha',
+            'password' => 'required|alpha_num',
+            'password_confir' => 'required|same:password' 
+            );
+        $mensajes = array(
+            'user.required' => 'El campo nombre de administrador es obligatorio',
+            'user.alpha' => 'El nombre de administrador no debe contener espacios',
+            'password.required' => 'La contraseña es obligatoria',
+            'password.alpha_num' => 'La contraseña debe tener números y letras',
+            'password_confir.required' => 'La confirmación es requerida',
+            'password_confir.same' => 'las contraseñas no coinciden', );
+         $this->validate($request,$reglas,$mensajes);
+        
+            $administrador = Administrador::find($request['id']);
+            $administrador->user = $request['user'];
+            $administrador->password = $request['password'];
+            $administrador->persona_id = $request['id']; 
+            $administrador->save();
+            return redirect('administrador');
     }
 
     /**
@@ -79,6 +136,7 @@ class AdministradorController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Administrador::destroy($id);
+        return redirect ('administrador');
     }
 }

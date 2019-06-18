@@ -7,7 +7,7 @@
     <meta name="author" content="">
     <link rel="icon" href="favicon.ico">
 
-    <title>@yield('title') Fixture</title>
+    <title>@yield('title')Fixture</title>
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -17,7 +17,7 @@
 </head>
 
 <body>
-
+        
 <header>
     <!-- Fixed navbar -->
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
@@ -28,9 +28,19 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="{{ url('persona') }}">Usuarios</a>
+                    <a class="nav-link" href="{{ url('persona/nuevo') }}">Nueva Persona</a>
+                    
                 </li>
-            </ul>
+                <li class="nav-item active">
+                     <a class="nav-link" href="{{ url('persona') }}">Registro de Personas</a>
+                </li>
+                <li class="nav-item active">
+                     <a class="nav-link" href="{{ url('administrador') }}">Administradores</a>
+                </li>
+                <li class="nav-item active">
+                     <a class="nav-link" href="{{ url('arbitro') }}">Arbitros</a>
+                </li>
+            </ul> 
         </div>
     </nav>
 </header>
