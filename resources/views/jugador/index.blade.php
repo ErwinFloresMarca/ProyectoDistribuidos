@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="css/bootstrap.min.css" >
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Delegado</title>
+    <title>Jugador</title>
   </head>
   <body>
     <div class="container">
@@ -17,34 +17,35 @@
                             border-radius: 20px;
                             -webkit-border-radius: 20px;
                             padding: 20px;">
-        <legend class="w-auto"><h1 class='display-4 text-primary text-center'>Lista de delegados</h1></legend>
+        <legend class="w-auto"><h1 class='display-4 text-primary text-center'>Lista de jugadores</h1></legend>
 
         <table class="table table-striped" >
-                <a href="delegado/nuevo"
+                <a href="jugador/nuevo"
                     target="_blank"
                     class="btn btn-default btn-warning">Nuevo</i>
                 </a>
       </div>
       
       <tr>
-        <td>No. </td> <td>Usuario</td> <td>Persona</td> <td>Contraseña</td> <td>Opciones</td>
+        <td>No. </td> <td>Persona</td> <td>Nro. camiseta</td> <td>Equipo</td> <td>Opciones</td>
       </tr>
       <?php
       use Illuminate\Support\Facades\Crypt;
       $i=1;
       ?>
-      @foreach($delegados as $delegado)
+      @foreach($personas as $persona)
       <tr>
         <td>{{$i++}}</td> 
-        <td>{{$delegado->user}}</td>
-        <td>{{$delegado->nombre}} {{$delegado->ap_paterno}} {{$delegado->ap_materno}}</td> 
-        <td>{{$delegado->password}}</td>
+        
+        <td>{{$persona->nombre}} {{$persona->ap_paterno}} {{$persona->ap_materno}}</td> 
+        <td>{{$persona->numero}}</td>
+        <td>{{$persona->nombre_equipo}}</td>
         <td>
-          <a href="delegado/editar/{{$delegado->id}}"
+          <a href="jugador/editar/{{$persona->idju}}"
               class="btn btn-default btn-primary">Editar</i>
           </a>
-          <a href="delegado/eliminar/{{$delegado->id}}" 
-             onclick="return confirm ('¿ELIMINAR DELEGADO?')"
+          <a href="jugador/eliminar/{{$persona->idju}}" 
+             onclick="return confirm ('¿ELIMINAR JUGADOR?')"
              class="btn btn-danger btn-primary" >Eliminar</i>
           </a>
           

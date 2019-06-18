@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="/css/bootstrap.min.css" >
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Insertar delegado</title>
+    <title>Editar jugador</title>
   </head>
   <body>
     <div class="container">
@@ -12,20 +12,20 @@
       <div class="panel panel-default">
 
 			<div class="panel-body">
-    {{Form::open(array('method'=>'POST','route'=>'delegado.actualizar'))}}
+    {{Form::open(array('method'=>'POST','route'=>'jugador.actualizar'))}}
 
       <fieldset   style="border:2px groove #00FFFF; background:#DDFFFF;
                           -moz-border-radius:20px;
                           border-radius: 20px;
                           -webkit-border-radius: 20px;
                           padding: 20px;">
-      <legend class="w-auto"><p class='display-4 text-primary'>Editar delegado</p></legend>
+      <legend class="w-auto"><p class='display-4 text-primary'>Editar jugador</p></legend>
 
       <div class="panel panel-default">
 			<div class="panel-body">
 
       <div class="form-group">
-        
+
           {{Form::label('ci','C.I.: ')}}
           {{Form::number('ci',$datos['persona']->ci,[
             'class'=>'form-control '.( ($errors->isNotEmpty())?
@@ -40,12 +40,12 @@
 
           <br>
         
-          {{Form::label('nombre','Nombre de delegado: ')}}
+          {{Form::label('nombre','Nombre de jugador: ')}}
           {{Form::text('nombre',$datos['persona']->nombre,[
             'class'=>'form-control '.( ($errors->isNotEmpty())?
                 (($errors->has('nombre'))? 'is-invalid' : 'is-valid'): '' ),
             'id'=>"nombre",
-            'placeholder'=>"Nombre de delegado"]) }}
+            'placeholder'=>"Nombre de jugador"]) }}
           @if(($errors->isNotEmpty()))
           <div class="{{($errors->has('nombre'))? 'in':''}}valid-feedback">
             {{$errors->has('nombre')?$errors->first('nombre'):'¡Se ve bien!'}}
@@ -88,7 +88,8 @@
           {{Form::date('fecha_nacimiento',$datos['persona']->fecha_nacimiento,[
             'class'=>'form-control '.( ($errors->isNotEmpty())?
                 (($errors->has('fecha_nacimiento'))? 'is-invalid' : 'is-valid'): '' ),
-            'id'=>"fecha_nacimiento",]) }}
+            'id'=>"fecha_nacimiento",
+            'placeholder'=>"Nombre de jugador"]) }}
           @if(($errors->isNotEmpty()))
           <div class="{{($errors->has('fecha_nacimiento'))? 'in':''}}valid-feedback">
             {{$errors->has('fecha_nacimiento')?$errors->first('fecha_nacimiento'):'¡Se ve bien!'}}
@@ -100,7 +101,7 @@
             'class'=>'form-control '.( ($errors->isNotEmpty())?
                 (($errors->has('email'))? 'is-invalid' : 'is-valid'): '' ),
             'id'=>"email",
-            'placeholder'=>"Correo jugador"]) }}
+            'placeholder'=>"Nombre de jugador"]) }}
           @if(($errors->isNotEmpty()))
           <div class="{{($errors->has('email'))? 'in':''}}valid-feedback">
             {{$errors->has('email')?$errors->first('email'):'¡Se ve bien!'}}
@@ -108,55 +109,33 @@
           @endif
           <br>
 
-        
-          {{Form::label('user','Nombre de Usuario')}}
-          {{Form::text('user',$datos['delegado']->user,[
+          {{Form::label('numero','Número jugador: ')}}
+          {{Form::text('numero',$datos['jugador']->numero,[
             'class'=>'form-control '.( ($errors->isNotEmpty())?
-                (($errors->has('user'))? 'is-invalid' : 'is-valid'): '' ),
-            'id'=>"user",
-            'placeholder'=>"Nombre de usuario"]) }}
+                (($errors->has('numero'))? 'is-invalid' : 'is-valid'): '' ),
+            'id'=>"numero",
+             'disabled']) }}
           @if(($errors->isNotEmpty()))
-          <div class="{{($errors->has('user'))? 'in':''}}valid-feedback">
-            {{$errors->has('user')?$errors->first('user'):'¡Se ve bien!'}}
+          <div class="{{($errors->has('numero'))? 'in':''}}valid-feedback">
+            {{$errors->has('numero')?$errors->first('numero'):'¡Se ve bien!'}}
           </div>
           @endif
-        
-        <br>
-        <div class="form-group">
-          {{Form::label('password','Contraseña: ')}}
-          {{Form::number('password','',[
-            'class'=>'form-control '.(
-              ($errors->isNotEmpty())?
-            (($errors->has('password'))? 'is-invalid' : 'is-valid'): '' ),
-            'id'=>"password",
-            'placeholder'=>"Intro contraseña"
-          ] ) }}
-          @if(($errors->isNotEmpty()))
-          <div class="{{($errors->has('password'))? 'in':''}}valid-feedback">
-            {{$errors->has('password')?$errors->first('password'):'¡Se ve bien!'}}
-          </div>
-          @endif
-        </div>
-        <div class="form-group">
-          {{Form::label('password_confir','Confirmar contraseña: ')}}
-          {{Form::number('password_confir','',[
-            'class'=>'form-control '.(
-              ($errors->isNotEmpty())?
-            (($errors->has('password_confir'))? 'is-invalid' : 'is-valid'): '' ),
-            'id'=>"password_confir",
-            'placeholder'=>"Intro contraseña"
-          ] ) }}
-          @if(($errors->isNotEmpty()))
-          <div class="{{($errors->has('password_confir'))? 'in':''}}valid-feedback">
-            {{$errors->has('password_confir')?$errors->first('password_confir'):'¡Se ve bien!'}}
-          </div>
-          @endif
-        </div>
 
+          @if(session('mensaje'))
+                  {{ session('mensaje') }} <br>
+                @endif <br>
+
+        Nombre equipo: <select name='ideq'>
+                @foreach($datos['equipo'] as $equipo)
+                <option value='{{$equipo->ideq}}'>{{$equipo->nombre_equipo}}</option>
+                @endforeach
+              </select>
+               
+              
       </div>
-
+      
       {{Form::hidden('idpe', $datos['persona']->id )}}
-      {{Form::hidden('idde', $datos['delegado']->id )}}
+      {{Form::hidden('idju', $datos['jugador']->id )}}
       {{Form::button('Borrar',['type'=>"reset",'class'=>"btn btn-danger"])}}
       {{Form::button('Guardar',['type'=>"submit",'class'=>"btn btn-success"])}}
 
@@ -165,7 +144,6 @@
     </fieldset>
 
     {{Form::close()}}
-    
     @if(session('estado'))
     <br>
     <br>
