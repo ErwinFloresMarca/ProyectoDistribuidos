@@ -21,13 +21,8 @@ class DelegadoController extends Controller
                         'personas.id')
                      ->select('nombre','ap_paterno','ap_materno','user','password','delegados.id')
                      ->get();
-        $persona= DB::table('personas')
-                     ->select('personas.id as idpe','nombre','ap_paterno','ap_materno')
-                     ->whereNotIn('id', DB::table('delegados')->select('delegados.persona_id'))
-                     ->get();
-        return view('delegado.index')->with('datos',array(
-                                                        'delegados'=>$delegado,
-                                                        'personas'=>$persona));
+        
+        return view('delegado.index')->with('delegados',$delegado);
     }
 
     /**
@@ -35,10 +30,16 @@ class DelegadoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($id)
+    public function create()
     { 
-        $persona = Persona::find($id);
-        return view('delegado.create')->with('persona',$persona);
+        //$persona = Persona::find($id);
+
+         /*$persona= DB::table('personas')
+                     ->select('personas.id as idpe','nombre','ap_paterno','ap_materno')
+                     ->whereNotIn('id', DB::table('delegados')->select('delegados.persona_id'))
+                     ->get();*/
+
+        return view('delegado.create');//->with('personas',$persona);
     }
 
     /**
@@ -49,25 +50,55 @@ class DelegadoController extends Controller
      */
     public function store(Request $request)
     {
+
         $reglas = array(
+            'ci' => 'required|min:100000|max:999999|numeric|unique:personas',
+            'nombre' => 'required|String',
+            'ap_paterno' => 'required|String',
+            'ap_materno' => 'required|String',
+            'email' => 'required|E-Mail|unique:personas',
             'user' => 'required|alpha',
             'password' => 'required|alpha_num',
             'password_confir' => 'required|same:password' 
             );
         $mensajes = array(
+            'ci.unique' => 'El ci ya ha sido registrado', 
+            'ci.min' => 'El ci debe tener al menos 6 dígitos',
+            'ci.max' => 'El ci  no debe tener al más de 6 dígitos',
+            'nombre.required' => 'El nombre es obligatorio',
+            'nombre.string' => 'El nombre solo debe contener letras',
+            'ap_paterno.required' => 'El apellido paterno es obligatorio',
+            'ap_paterno.string' => 'El apellido solo debe contener caracteres',
+            'ap_materno.required' => 'El apellido materno es obligatorio',
+            'ap_materno.string' => 'El apellido materno solo debe contener caractres',
+            'email.unique' => 'El email ya ha sido registrado',
             'user.required' => 'El campo nombre de usuario es obligatorio',
             'user.alpha' => 'El nombre de usuario no debe contener espacios',
             'password.required' => 'La contraseña es obligatoria',
             'password.alpha_num' => 'La contraseña debe tener números y letras',
             'password_confir.required' => 'La confirmación es requerida',
-            'password_confir.same' => 'las contraseñas no coinciden', );
+            'password_confir.same' => 'las contraseñas no coinciden' );
+
         $errores = $this->validate($request,$reglas,$mensajes);
+        
         if($errores)
         {
             $delegado = new Delegado;
+            $persona = new Persona;
+
+            $persona->ci = $request['ci'];
+            $persona->nombre = $request['nombre'];
+            $persona->ap_paterno = $request['ap_paterno'];
+            $persona->ap_materno = $request['ap_materno'];
+            $persona->email = $request['email'];
+            $persona->fecha_nacimiento = $request['fecha_nacimiento'];
+
             $delegado->user = $request['user'];
             $delegado->password = $request['password'];
-            $delegado->persona_id = $request['id']; 
+            //$delegado->persona_id = $request['id']; 
+
+            $persona->save();
+            $delegado->persona_id = $persona->id;
             $delegado->save();
             return redirect('delegado');
         }
@@ -95,10 +126,14 @@ class DelegadoController extends Controller
     public function edit($id)
     {
         $delegado = Delegado::find($id);
-        /*$persona = DB::table('personas')->select('personas.id','nombre','ap_paterno','ap_materno')
-                     ->where('personas.id',)
+        /*$persona = DB::table('personas')->select('*')
+                     ->where('personas.id',$delegado->persona_id)
                      ->get();*/
-        return view('delegado.edit')->with('delegado',$delegado);
+        $del = $delegado->persona_id;
+        $persona = Persona::find($del);
+
+        return view('delegado.edit')->with('datos',array('delegado' => $delegado, 
+                                                         'persona' => $persona ));
     }
 
     /**
@@ -111,24 +146,48 @@ class DelegadoController extends Controller
     public function update(Request $request)
     {
         $reglas = array(
+            'nombre' => 'required|String',
+            'ap_paterno' => 'required|String',
+            'ap_materno' => 'required|String',
+            'email' => 'required|E-Mail',
             'user' => 'required|alpha',
             'password' => 'required|alpha_num',
             'password_confir' => 'required|same:password' 
             );
         $mensajes = array(
+            'nombre.required' => 'El nombre es obligatorio',
+            'nombre.string' => 'El nombre solo debe contener letras',
+            'ap_paterno.required' => 'El apellido paterno es obligatorio',
+            'ap_paterno.string' => 'El apellido solo debe contener caracteres',
+            'ap_materno.required' => 'El apellido materno es obligatorio',
+            'ap_materno.string' => 'El apellido materno solo debe contener caractres',
             'user.required' => 'El campo nombre de usuario es obligatorio',
             'user.alpha' => 'El nombre de usuario no debe contener espacios',
             'password.required' => 'La contraseña es obligatoria',
             'password.alpha_num' => 'La contraseña debe tener números y letras',
             'password_confir.required' => 'La confirmación es requerida',
-            'password_confir.same' => 'las contraseñas no coinciden', );
+            'password_confir.same' => 'las contraseñas no coinciden' );
+
         $errores = $this->validate($request,$reglas,$mensajes);
+        
         if($errores)
         {
-            $delegado = Delegado::find($request['id']);
+            $delegado = Delegado::find($request['idde']);
+            $persona =  Persona::find($request['idpe']);
+
+            //$persona->ci = $request['ci'];
+            $persona->nombre = $request['nombre'];
+            $persona->ap_paterno = $request['ap_paterno'];
+            $persona->ap_materno = $request['ap_materno'];
+            $persona->email = $request['email'];
+            $persona->fecha_nacimiento = $request['fecha_nacimiento'];
+
             $delegado->user = $request['user'];
             $delegado->password = $request['password'];
-            $delegado->persona_id = $request['persona_id'];
+            //$delegado->persona_id = $request['id']; 
+
+            $persona->save();
+            //$delegado->persona_id = $persona->id;
             $delegado->save();
             return redirect('delegado');
         }

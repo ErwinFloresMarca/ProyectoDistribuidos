@@ -19,7 +19,7 @@ class CreateJugadoresTable extends Migration
             $table->string('numero',2);
             $table->bigInteger('persona_id')->unsigned()->unique();
             $table->foreign('persona_id')->references('id')->on('personas');
-            $table->bigInteger('equipo_id')->unsigned()->unique();
+            $table->bigInteger('equipo_id')->unsigned();
             $table->foreign('equipo_id')->references('id')->on('equipos');
         });
     }

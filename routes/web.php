@@ -70,7 +70,7 @@ Route::post('/partido/guardar_resultado','PartidoController@guardar_resultado')-
 //Inicio Parte de Marian
 Route::get('delegado','DelegadoController@index')->name('delegado.index');
 
-Route::get('delegado/nuevo/{id}','DelegadoController@create')->name('delegado.create');
+Route::get('delegado/nuevo','DelegadoController@create')->name('delegado.create');
 Route::post('delegado/guardar','DelegadoController@store')->name('delegado.guardar');
 
 Route::get('delegado/editar/{id}','DelegadoController@edit')->name('delegado.editar');
@@ -85,4 +85,18 @@ Route::post('equipo/guardar','EquipoController@store')->name('equipo.guardar');
 
 Route::get('equipo/editar/{id}','EquipoController@edit')->name('equipo.editar');
 Route::post('equipo/actualizar','EquipoController@update')->name('equipo.actualizar');
+
+Route::get('equipo/eliminar/{id}','EquipoController@destroy')->name('equipo.eliminar');
+
+Route::get('jugador','JugadorController@index')->name('jugador.index');
+
+Route::get('jugador/equipo','JugadorController@equipo')->name('jugador.equipo');
+
+Route::get('jugador/nuevo','JugadorController@create')->name('jugador.crear');
+Route::post('jugador/guardar','JugadorController@store')->name('jugador.guardar');
+
+Route::get('jugador/editar/{id}','JugadorController@edit')->name('jugador.editar');
+Route::post('jugador/actualizar','JugadorController@update')->name('jugador.actualizar');
+
+Route::get('jugador/eliminar/{id}','JugadorController@destroy')->name('jugador.eliminar');
 //Fin Parte de Marian

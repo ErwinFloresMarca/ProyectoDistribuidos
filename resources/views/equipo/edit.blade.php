@@ -60,8 +60,9 @@
               <select class="form control" name='idde'>
                 @foreach($datos['delegados'] as $delegado)
                 <option value='{{$delegado->idde}}'>{{$delegado->nombre}} {{$delegado->ap_paterno}} {{$delegado->ap_materno}}</option>
-              </select>  
                 @endforeach
+              </select>  
+                
         </div>      
       </div>
       
