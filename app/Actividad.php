@@ -16,6 +16,53 @@ class Actividad extends Model
     public function partidos(){
       return $this->hasMany(Partido::class);
     }
+    public function resultadosPorClasificatoria($grupo,$type,$all = false){
+      $act=$grupo->actividades()->get();
+      $acts=array();
+      foreach ($act as $ac) {
+        if(strncmp ($ac->nombre, $type, strlen($type))==0){
+          $acts[]=$ac;
+        }
+      }
+      $equipos=array();
+      foreach ($acts as $act) {
+        $partidos=$act->partidos()->get();
+        foreach ($partidos as $partido) {
+          if($partido->estado==1||$all){
+            $l=$partido->local_id;
+            $v=$partido->visitante_id;
+            $gl=$partido->goles_local;
+            $gv=$partido->goles_visitante;
+            $ganador=($gl>$gv)?1:2;
+            if(isset($equipos[$v."".$l])){
+              $equipos[$v."".$l]['GL']+=$gv;
+              $equipos[$v."".$l]['GV']+=$gl;
+              $equipos[$v."".$l]['ganador']=($equipos[$v."".$l]['GL']>$equipos[$v."".$l]['GV'])? 1 : 2 ;
+            }
+            else{
+              $equipos[$l."".$v]['local_id']=$l;
+              $equipos[$l."".$v]['visitante_id']=$v;
+              $equipos[$l."".$v]['ganador']=($partido->estado==1)?$ganador:0;
+              $equipos[$l."".$v]['GL']=$gl;
+              $equipos[$l."".$v]['GV']=$gv;
+            }
+          }
+        }
+      }
+      //ordenar resultados
+      $equipos=array_values($equipos);
+
+      return $equipos;
+    }
+    function GanadoresClasificatoria($resultClas){
+      $ganadores=array();
+      foreach ($resultClas as $enfrentamiento) {
+        if($enfrentamiento['ganador']!=0){
+          $ganadores[]=($enfrentamiento['ganador']==1)? $enfrentamiento['local_id']: $enfrentamiento['visitante_id'] ;
+        }
+      }
+      return $ganadores;
+    }
     public function crearActividades($grupo_id,$equipos,$cantPartidosDia,$horas,$fechaInicio,$arbitros){
       $n=count($equipos);
       if($n%2==1){
@@ -68,7 +115,7 @@ class Actividad extends Model
       foreach($actPrimeraVuelta as $actividad){
         $parts=$actividad->partidos()->get();
         $duracion=intval(count($parts)/$cantPartidosDia)+(((intval(count($parts)%$cantPartidosDia))>0)?1:0);
-        
+
         $act=new Actividad;
         $act->fecha_inicio=date("Y-m-d", $FI);
         $FI+=($duracion*86400);

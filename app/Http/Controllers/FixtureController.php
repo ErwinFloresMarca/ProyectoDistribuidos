@@ -88,6 +88,11 @@ class FixtureController extends Controller
     {
         //
     }
+    public function rol($id){
+      $id=Crypt::decrypt($id);
+      $fix=Fixture::find($id);
+      return view('fixture.rol')->with('fixture',$fix);
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -125,6 +130,11 @@ class FixtureController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function resultados($id){
+      $id=Crypt::decrypt($id);
+      $fix=Fixture::find($id);
+      return view('fixture.resultados')->with('fixture',$fix);
+    }
     public function destroy(Request $request)
     {
         //

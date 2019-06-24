@@ -16,21 +16,21 @@ Route::get('/', function () {
 
 });
 //Inicio Parte de Yessi
-//parte de persona 
+//parte de persona
 Route::get('persona','PersonaController@index')->name('persona.index');
 Route::get('persona/nuevo','PersonaController@create')->name('persona.nuevo');
 Route::post('persona/guardar','PersonaController@store')->name('persona.guardar');
 Route::get('persona/edit/{id}','PersonaController@edit')->name('persona.edit');
 Route::post('persona/edit' , 'PersonaController@update')->name('persona.actualizar');
 Route::get('persona/eliminar/{id}','PersonaController@destroy');
-//parte de administrador 
+//parte de administrador
 Route::get('administrador' , 'AdministradorController@index')->name('administrador.index');
 Route::get('administrador/nuevo/{id}' , 'AdministradorController@create')->name('administrador.nuevo');
 Route::get('administrador/edit/{id}' , 'AdministradorController@edit')->name('administrador.edit');
 Route::post('administrador/edit' , 'AdministradorController@update')->name('administrador.actualizar');
 Route::post('administrador/guardar' , 'AdministradorController@store')->name('administrador.guardar');
 Route::get('administrador/eliminar/{id}' , 'AdministradorController@destroy');
-//parte de arbitro 
+//parte de arbitro
 Route::get('arbitro' , 'ArbitroController@index') -> name('arbitro.index');
 Route::get('arbitro/nuevo/{id}','ArbitroController@create') ->name('arbitro.nuevo');
 Route::get('arbitro/edit/{id}' , 'ArbitroController@edit')->name('arbitro.edit');
@@ -45,19 +45,26 @@ Route::post('/fixture/actualizar','FixtureController@update')->name('fixture.act
 Route::get('/fixture/nuevo','FixtureController@create')->name('fixture.nuevo');
 Route::post('/fixture/guardar','FixtureController@store')->name('fixture.guardar');
 Route::post('/fixture/eliminar','FixtureController@destroy')->name('fixture.eliminar');
+Route::get('/fixture/rol/{id}','FixtureController@rol')->name('fixture.rol');
+Route::get('/fixture/resultados/{id}','FixtureController@resultados')->name('fixture.resultados');
+
 Route::get('/grupo/{id}','GrupoController@index')->name('grupo.index');
 Route::get('/grupo/edit/{id}','GrupoController@edit')->name('grupo.edit');
 Route::post('/grupo/actualizar','GrupoController@update')->name('grupo.actualizar');
-Route::get('/grupo/nuevo','GrupoController@create')->name('grupo.nuevo');
-Route::post('/grupo/guardar','GrupoController@store')->name('grupo.guardar');
 Route::post('/grupo/eliminar','GrupoController@destroy')->name('grupo.eliminar');
 
 Route::get('/actividad/{id}','ActividadController@index')->name('actividad.index');
 Route::get('/actividad/edit/{id}','ActividadController@edit')->name('actividad.edit');
 Route::post('/actividad/actualizar','ActividadController@update')->name('actividad.actualizar');
-Route::get('/actividad/nuevo','ActividadController@create')->name('actividad.nuevo');
-Route::post('/actividad/guardar','ActividadController@store')->name('actividad.guardar');
 Route::post('/actividad/eliminar','ActividadController@destroy')->name('actividad.eliminar');
+
+Route::get('/partido/{id}','PartidoController@index')->name('partido.index');
+Route::get('/partido/edit/{id}','PartidoController@edit')->name('partido.edit');
+Route::post('/partido/actualizar','PartidoController@update')->name('partido.actualizar');
+Route::post('/partido/eliminar','PartidoController@destroy')->name('partido.eliminar');
+Route::get('/partido/partidos_arbitro/{id}','PartidoController@partidos_arbitro')->name('partido.partidos_arbitro');
+Route::get('/partido/resultado/{id}','PartidoController@resultados')->name('partido.resultados');
+Route::post('/partido/guardar_resultado','PartidoController@guardar_resultado')->name('partido.guardar_resultado');
 //Fin Parte de Erwin
 
 //Inicio Parte de Marian

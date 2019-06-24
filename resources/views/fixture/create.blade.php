@@ -196,10 +196,10 @@
           </div>
         </div>
       </div>
+      </div>
       {{Form::button('Borrar',['type'=>"reset",'class'=>"btn btn-danger"])}}
       {{Form::button('Guardar',['type'=>"submit",'class'=>"btn btn-success"])}}
-
-      </div>
+    </div>
       </div>
     </fieldset>
 

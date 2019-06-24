@@ -39,14 +39,14 @@
       <tr>
         <td>{{$i++}}</td> <td>{{$actividad->nombre}}</td> <td>{{$actividad->fecha_inicio}}</td> <td>{{$actividad->fecha_fin}}</td>
         <td>
-          <a href="/actividad/ {{Crypt::encrypt($actividad->id)}}"
+          <a href="/partido/ {{Crypt::encrypt($actividad->id)}}"
               target="_blank"
-              class="btn btn-default btn-warning">Actividades</i>
+              class="btn btn-default btn-warning">Partidos</i>
           </a>
-          <a href="/grupo/edit/ {{Crypt::encrypt($actividad->id)}}"
+          <a href="/actividad/edit/ {{Crypt::encrypt($actividad->id)}}"
             class="btn btn-info btn-xs">editar</i>
           </a>
-          {{Form::open(array('method'=>'Post','route'=>'grupo.eliminar','style'=>'display: inline;'))}}
+          {{Form::open(array('method'=>'Post','route'=>'actividad.eliminar','style'=>'display: inline;'))}}
                <input type="hidden" name="id" value="{{Crypt::encrypt($actividad->id)}}">
              <button class="btn btn-danger btn-xs"
                 onclick="return confirm('Estas seguro de querer eliminar todos los datos relacionados a esta actividad?')">Eliminar</i>
