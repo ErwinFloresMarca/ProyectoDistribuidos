@@ -7,12 +7,14 @@
     <title>Delegado</title>
   </head>
   <body>
+    @extends ('layout')
+    <br>
     <div class="container">
       <br/>
       <div class="panel panel-default">
 
       <div class="panel-body">
-        <fieldset   style="border:2px groove #00FFFF; background:#DDFFFF;
+        <fieldset   style="border:2px groove #00FFFF; background:rgb(230,230,230,0.8);
                             -moz-border-radius:20px;
                             border-radius: 20px;
                             -webkit-border-radius: 20px;
@@ -25,7 +27,7 @@
                     class="btn btn-default btn-warning">Nuevo</i>
                 </a>
       </div>
-      
+
       <tr>
         <td>No. </td> <td>Usuario</td> <td>Persona</td> <td>Contraseña</td> <td>Opciones</td>
       </tr>
@@ -35,15 +37,15 @@
       ?>
       @foreach($delegados as $delegado)
       <tr>
-        <td>{{$i++}}</td> 
+        <td>{{$i++}}</td>
         <td>{{$delegado->user}}</td>
-        <td>{{$delegado->nombre}} {{$delegado->ap_paterno}} {{$delegado->ap_materno}}</td> 
+        <td>{{$delegado->nombre}} {{$delegado->ap_paterno}} {{$delegado->ap_materno}}</td>
         <td>{{$delegado->password}}</td>
         <td>
           <a href="delegado/editar/{{$delegado->id}}"
               class="btn btn-default btn-primary">Editar</i>
           </a>
-          <a href="delegado/eliminar/{{$delegado->id}}" 
+          <a href="delegado/eliminar/{{$delegado->id}}"
              onclick="return confirm ('¿ELIMINAR DELEGADO?')"
              class="btn btn-danger btn-primary" >Eliminar</i>
           </a>

@@ -17,26 +17,18 @@
 </head>
 
 <body>
-        
+
 <header>
     <!-- Fixed navbar -->
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <a class="navbar-brand" href="#">Fixture</a>
+        <a class="navbar-brand" href="">Delegado</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="nav nav-pills">
-                <li class="nav-item active">
-                     <a class="nav-link" href="{{ url('equipo') }}">Equipo</a>
-                </li>
-                <li class="nav-item active">
-                     <a class="nav-link" href="{{ url('fixture') }}">Fixture</a>
-                </li>
-                 <li class="nav-item active">
-                     <a class="nav-link" href="{{ url('arbitro') }}">Arbitros</a>
-                </li>
-            </ul> 
+
+            </ul>
         </div>
     </nav>
 </header>

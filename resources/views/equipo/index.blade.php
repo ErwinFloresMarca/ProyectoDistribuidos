@@ -2,19 +2,19 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="css/bootstrap.min.css" >
+    <link rel="stylesheet" href="/css/bootstrap.min.css" >
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Equipo</title>
   </head>
   <body>
-      @extends ('layout3')
+      @extends ('layout')
       <br><br>
     <div class="container">
       <br/>
       <div class="panel panel-default">
 
       <div class="panel-body">
-        <fieldset   style="border:2px groove #00FFFF; background:#DDFFFF;
+        <fieldset   style="border:2px groove #00FFFF; background:rgb(230,230,230,0.70);
                             -moz-border-radius:20px;
                             border-radius: 20px;
                             -webkit-border-radius: 20px;
@@ -36,8 +36,8 @@
       ?>
       @foreach($equipos as $equipo)
       <tr>
-        <td>{{$i++}}</td> 
-        <td>{{$equipo->nombre_equipo}}</td> 
+        <td>{{$i++}}</td>
+        <td>{{$equipo->nombre_equipo}}</td>
         <td>{{$equipo->color}}</td>
         <td>{{$equipo->nombre}} {{$equipo->ap_paterno}} {{$equipo->ap_materno}}</td>
         <td>

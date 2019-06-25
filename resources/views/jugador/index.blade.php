@@ -2,17 +2,19 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="css/bootstrap.min.css" >
+    <link rel="stylesheet" href="/css/bootstrap.min.css" >
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Jugador</title>
   </head>
   <body>
+    @extends('layout3')
+    <br>
     <div class="container">
       <br/>
       <div class="panel panel-default">
 
       <div class="panel-body">
-        <fieldset   style="border:2px groove #00FFFF; background:#DDFFFF;
+        <fieldset   style="border:2px groove #00FFFF; background:rgb(230,230,230,0.70);
                             -moz-border-radius:20px;
                             border-radius: 20px;
                             -webkit-border-radius: 20px;
@@ -25,7 +27,7 @@
                     class="btn btn-default btn-warning">Nuevo</i>
                 </a>
       </div>
-      
+
       <tr>
         <td>No. </td> <td>Persona</td> <td>Nro. camiseta</td> <td>Equipo</td> <td>Opciones</td>
       </tr>
@@ -35,20 +37,20 @@
       ?>
       @foreach($personas as $persona)
       <tr>
-        <td>{{$i++}}</td> 
-        
-        <td>{{$persona->nombre}} {{$persona->ap_paterno}} {{$persona->ap_materno}}</td> 
+        <td>{{$i++}}</td>
+
+        <td>{{$persona->nombre}} {{$persona->ap_paterno}} {{$persona->ap_materno}}</td>
         <td>{{$persona->numero}}</td>
         <td>{{$persona->nombre_equipo}}</td>
         <td>
           <a href="jugador/editar/{{$persona->idju}}"
               class="btn btn-default btn-primary">Editar</i>
           </a>
-          <a href="jugador/eliminar/{{$persona->idju}}" 
+          <a href="jugador/eliminar/{{$persona->idju}}"
              onclick="return confirm ('¿ELIMINAR JUGADOR?')"
              class="btn btn-danger btn-primary" >Eliminar</i>
           </a>
-          
+
         </td>
       </tr>
       @endforeach

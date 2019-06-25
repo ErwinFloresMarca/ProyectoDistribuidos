@@ -7,7 +7,12 @@
 
     <title>Intruducir Resultados</title>
   </head>
-  <body>
+  <body style="background: url(/img/backgrounds/pelota.jpg);
+  font-family: 'PT Sans', Helvetica, Arial, sans-serif;
+  text-align: center;
+  
+  background-repeat: no-repeat:;
+  background-size: 100%;">
     <div class="container">
       <br/>
     <div class="panel panel-default">

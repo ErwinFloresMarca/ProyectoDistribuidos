@@ -17,12 +17,28 @@ class JugadorController extends Controller
      */
     public function index()
     {
+      if(isset($delegado))
+        $id=$delegado->equipo()->get()->last()->id;
+      else {
+        $id=0;
+      }
+      if($id==0){
     	$persona = DB::table('jugadores')
     	             ->join('personas','personas.id','jugadores.persona_id')
     	             ->join('equipos','equipos.id','jugadores.equipo_id')
     	             ->select('numero','nombre','ap_paterno','ap_materno','nombre_equipo',
     	             	      'jugadores.id as idju','personas.id as idpe','equipos.id as ideq')
     	             ->get();
+      }
+      else{
+        $persona = DB::table('jugadores')
+      	             ->join('personas','personas.id','jugadores.persona_id')
+      	             ->join('equipos','equipos.id','jugadores.equipo_id')->where('jugadores.equipo_id',$id)
+      	             ->select('numero','nombre','ap_paterno','ap_materno','nombre_equipo',
+      	             	      'jugadores.id as idju','personas.id as idpe','equipos.id as ideq')
+      	             ->get();
+
+      }
         return view('jugador.index')->with('personas',$persona);
     }
 
@@ -77,7 +93,7 @@ class JugadorController extends Controller
             'email' => 'required|E-Mail|unique:personas',
             );
         $mensajes = array(
-            'ci.unique' => 'El ci ya ha sido registrado', 
+            'ci.unique' => 'El ci ya ha sido registrado',
             'ci.min' => 'El ci debe tener al menos 6 dígitos',
             'ci.max' => 'El ci  no debe tener al más de 6 dígitos',
             'nombre.required' => 'El nombre es obligatorio',
@@ -105,9 +121,9 @@ class JugadorController extends Controller
                 {
                     $persona = new Persona;
                     $jugador = new Jugador;
-                    
+
                     $id = $persona->id;
-                    
+
                     $persona->ci = $request['ci'];
                     $persona->nombre = $request['nombre'];
                     $persona->ap_paterno = $request['ap_paterno'];
@@ -127,7 +143,7 @@ class JugadorController extends Controller
                 {
                    return redirect('jugador/nuevo')->with('mensaje','Ese número ya existe en el equipo')->withInput();
                 }
-                
+
             }
             else
             {
@@ -160,7 +176,7 @@ class JugadorController extends Controller
                      ->select('personas.id as idpe','ci','nombre','ap_paterno','ap_materno','fecha_nacimiento','email')
                      ->where('personas.id','=',$jugador->persona_id)
                      ->get();*/
-        $ju = $jugador->persona_id; 
+        $ju = $jugador->persona_id;
         $persona = Persona::find($ju);
         $equipo = DB::table('equipos')
                      ->select('nombre_equipo','equipos.id as ideq')
@@ -180,15 +196,15 @@ class JugadorController extends Controller
     public function update(Request $request)
     {
         $reglas = array(
-            
+
             'nombre' => 'required|String',
             'ap_paterno' => 'required|String',
             'ap_materno' => 'required|String',
             'email' => 'required|E-Mail',
             );
         $mensajes = array(
-            
-            
+
+
             'nombre.required' => 'El nombre es obligatorio',
             'nombre.string' => 'El nombre solo debe contener letras',
             'ap_paterno.required' => 'El apellido paterno es obligatorio',
@@ -214,8 +230,8 @@ class JugadorController extends Controller
                 //{
                     $persona = Persona::find($request['idpe']);
                     $jugador = Jugador::find($request['idju']);
-                    
-                    
+
+
                     //$persona->ci = $request['ci'];
                     $persona->nombre = $request['nombre'];
                     $persona->ap_paterno = $request['ap_paterno'];
@@ -235,7 +251,7 @@ class JugadorController extends Controller
                 {
                    return redirect('jugador/nuevo')->with('mensaje','Ese número ya existe en el equipo')->withInput();
                 }*/
-                
+
             }
             else
             {

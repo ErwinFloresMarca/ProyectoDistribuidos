@@ -6,12 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Partidos</title>
   </head>
-  <body>
+  <body
+  >
+    @extends ('layout2')
+    <br>
     <div class="container">
       <br/>
       <div class="panel panel-default">
 			<div class="panel-body">
-        <fieldset   style="border:2px groove #00FFFF; background:#DDFFFF;
+        <fieldset   style="border:2px groove #00FFFF; background:rgb(230,230,230,0.70);
                             -moz-border-radius:20px;
                             border-radius: 20px;
                             -webkit-border-radius: 20px;
@@ -47,6 +50,7 @@
         <td>
           @if($part->estado==0)
           <a href="/partido/resultado/ {{Crypt::encrypt($part->id)}}"
+
             class="btn btn-info btn-xs">editar</i>
           </a>
           @endif

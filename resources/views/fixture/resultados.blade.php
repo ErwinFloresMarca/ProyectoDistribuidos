@@ -7,6 +7,8 @@
     <title>Resultados</title>
   </head>
   <body>
+    @extends ('layout')
+    <br>
     <div class="container">
     <br/>
     <div class="panel panel-default">
@@ -19,7 +21,7 @@
         $cont=1;
         foreach ($grupos as $grupo): ?>
         <div class="col" align='center' >
-        <fieldset   style="border:2px groove #00FFFF; background:#DDFFFF;
+        <fieldset   style="border:2px groove #00FFFF; background:rgb(230,230,230,0.8);
                             -moz-border-radius:20px;
                             border-radius: 20px;
                             -webkit-border-radius: 20px;

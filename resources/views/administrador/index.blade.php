@@ -4,7 +4,7 @@
 	<title> Administradores de Fixture</title>
 </head>
 <body>
-		@extends ('layout3')
+		@extends ('layout')
 		<br><br><br>
 		<div class="btn-group" role="group" aria-label="...">
             <div class="btn-group" role="group">
@@ -14,11 +14,11 @@
                 @endforeach
             </select>
             </div>
-        </div> 
+        </div>
          <a href="administrador/nuevo/{{$persona->ida}}"
                     target="_blank"
                     class="btn btn-default btn-warning">Seleccionar</i>
-                </a>        
+                </a>
 		<table  class="table table-striped"  style="color: black; background:yellowgreen ; z-index:1;filter:alpha(opacity=60);-moz-opacity:.60;opacity:.60">
 			<br><br><br>
 		<thead>
@@ -38,8 +38,8 @@
 					<td> {{ $administrador -> nombre }} </td>
 					<td> {{ $administrador -> ap_paterno}} </td>
 					<td> {{ $administrador -> ap_materno }} </td>
-					
-					<td> <a href="administrador/edit/{{$administrador->id}}" class="btn btn-primary"> Editar Datos </a> 
+
+					<td> <a href="administrador/edit/{{$administrador->id}}" class="btn btn-primary"> Editar Datos </a>
 					<a href="administrador/eliminar/{{ $administrador->id}}" class="btn btn-danger"  onclick="return confirm ('¿Eliminar administrador?')"> Eliminar </a>
 				    </td>
 				</tr>

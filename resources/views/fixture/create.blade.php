@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -6,7 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Crear Fixture</title>
   </head>
-  <body>
+  <body style="background: url(../img/backgrounds/pelota.jpg);
+  font-family: 'PT Sans', Helvetica, Arial, sans-serif;
+  text-align: center;
+  color: #fff;
+  background-repeat: no-repeat:;
+  background-size: 100%;">
+
     <script language="JavaScript" type="text/JavaScript">
       function suma(obj)
       {
@@ -44,7 +51,7 @@
 
     {{Form::open(array('method'=>'POST','route'=>'fixture.guardar','class'=>'needs-validation','novalidate'))}}
 
-      <fieldset   style="border:2px groove #00FFFF; background:#DDFFFF;
+      <fieldset   style="border:2px groove #00FFFF; background:rgb(230,230,230,0.8);
                           -moz-border-radius:20px;
                           border-radius: 20px;
                           -webkit-border-radius: 20px;

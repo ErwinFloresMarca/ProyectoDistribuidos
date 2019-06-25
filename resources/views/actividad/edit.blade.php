@@ -7,6 +7,22 @@
     <title>Editar Actividad</title>
   </head>
   <body>
+    <style>
+
+    .trans{
+      background-color:#00BB00;
+      color:#CC0000;
+      position:absolute;
+      text-align:center;
+      top:50px;
+      left:40px;
+      padding:65px;
+      font-size:25px;
+      font-weight:bold;
+      width:300px;
+    }
+  </style>
+		@extends ('layout')
     <div class="container">
       <br/>
       <div class="panel panel-default">

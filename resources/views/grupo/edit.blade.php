@@ -7,6 +7,7 @@
     <title>Editar Grupo</title>
   </head>
   <body>
+    @extends ('layout')
     <div class="container">
       <br/>
       <div class="panel panel-default">

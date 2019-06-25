@@ -14,6 +14,26 @@
 Route::get('/', function () {
     return view('index');
 });
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Crypt;
+Route::post('/login', function (Request $request) {
+    $nomUser=$request['username'];
+    $passw=$request['password'];
+
+    $admin=DB::table('administradores')->where('administradores.user',$nomUser)->where('administradores.password',$passw)->get();
+    $deleg=DB::table('delegados')->where('delegados.user',$nomUser)->where('delegados.password',$passw)->get();
+    $arbit=DB::table('arbitros')->where('arbitros.user',$nomUser)->where('arbitros.password',$passw)->get();
+    if(count($admin)==1){
+      return view('fixture.index')->with('fixtures',App\Fixture::all());
+    }
+    elseif(count($deleg)==1){
+      return redirect('/jugador')->with('delegado',$deleg->last());
+    }elseif (count($arbit)==1) {
+      return redirect('/partido/partidos_arbitro/'.Crypt::encrypt($arbit->last()->id));
+    }
+    return redirect('/')->with('estado','El usuario o la contraseña no son correctos!!!');
+})->name('login');
 //Inicio Parte de Yessi
 //parte de persona
 Route::get('persona','PersonaController@index')->name('persona.index');
@@ -43,7 +63,7 @@ Route::get('/fixture/edit/{id}','FixtureController@edit')->name('fixture.edit');
 Route::post('/fixture/actualizar','FixtureController@update')->name('fixture.actualizar');
 Route::get('/fixture/nuevo','FixtureController@create')->name('fixture.nuevo');
 Route::post('/fixture/guardar','FixtureController@store')->name('fixture.guardar');
-Route::post('/fixture/eliminar','FixtureController@destroy')->name('fixture.eliminar');
+Route::get('/fixture/eliminar/{id}','FixtureController@destroy')->name('fixture.eliminar');
 Route::get('/fixture/rol/{id}','FixtureController@rol')->name('fixture.rol');
 Route::get('/fixture/resultados/{id}','FixtureController@resultados')->name('fixture.resultados');
 

@@ -7,11 +7,12 @@
     <title>Partidos</title>
   </head>
   <body>
+    @extends ('layout')
     <div class="container">
       <br/>
       <div class="panel panel-default">
 			<div class="panel-body">
-        <fieldset   style="border:2px groove #00FFFF; background:#DDFFFF;
+        <fieldset   style="border:2px groove #00FFFF; background:#rgb(230,230,230,0.8);
                             -moz-border-radius:20px;
                             border-radius: 20px;
                             -webkit-border-radius: 20px;
@@ -45,9 +46,6 @@
         <td>{{$part->fecha_partido}}</td>
         <td>{{$part->hora_partido}}</td>
         <td>
-          <a href="/partido/partidos_arbitro/ {{Crypt::encrypt(1)}}"
-            class="btn btn-info btn-xs">partidos para arbitro 1</i>
-          </a>
           <a href="/partido/edit/ {{Crypt::encrypt($part->id)}}"
             class="btn btn-info btn-xs">editar</i>
           </a>

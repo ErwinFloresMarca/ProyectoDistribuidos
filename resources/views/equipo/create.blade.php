@@ -7,6 +7,8 @@
     <title>Insertar equipo</title>
   </head>
   <body>
+    @extends ('layout')
+    <br>
     <div class="container">
       <br/>
       <div class="panel panel-default">
@@ -14,7 +16,7 @@
       <div class="panel-body">
     {{Form::open(array('method'=>'POST','route'=>'equipo.guardar'))}}
 
-      <fieldset   style="border:2px groove #00FFFF; background:#DDFFFF;
+      <fieldset   style="border:2px groove #00FFFF; background:rgb(230,230,230,0.70);
                           -moz-border-radius:20px;
                           border-radius: 20px;
                           -webkit-border-radius: 20px;
@@ -25,7 +27,7 @@
       <div class="panel-body">
 
       <div class="form-group">
-        
+
           {{Form::label('nombre_equipo','Nombre de Equipo')}}
           {{Form::text('nombre_equipo','',[
             'class'=>'form-control '.( ($errors->isNotEmpty())?
@@ -37,7 +39,7 @@
             {{$errors->has('nombre_equipo')?$errors->first('nombre_equipo'):'¡Se ve bien!'}}
           </div>
           @endif
-        
+
         <br>
         <div class="form-group">
           {{Form::label('color','Color: ')}}
@@ -54,19 +56,19 @@
           </div>
           @endif
         </div>
-        
+
               <select class="form control" name='idde'>
                 @foreach($delegados as $delegado)
                 <option value='{{$delegado->idde}}'>{{$delegado->nombre}} {{$delegado->ap_paterno}} {{$delegado->ap_materno}}</option>
                 @endforeach
-              </select>  
+              </select>
                 @if(session('mensaje'))
                   {{ session('mensaje') }} <br>
-                @endif        
+                @endif
       </div>
-      
-      {{Form::button('Borrar',['type'=>"reset",'class'=>"btn btn-danger"])}}
-      {{Form::button('Guardar',['type'=>"submit",'class'=>"btn btn-success"])}}
+
+      {{Form::button('Borrar',['type'=>"reset",'class'=>"btn btn-danger",'style'=>'width:150px;height:35px'])}}
+      {{Form::button('Guardar',['type'=>"submit",'class'=>"btn btn-success",'style'=>'width:150px;height:35px'])}}
 
       </div>
       </div>

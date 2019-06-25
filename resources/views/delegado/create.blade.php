@@ -7,6 +7,7 @@
     <title>Insertar delegado</title>
   </head>
   <body>
+    @extends ('layout')
     <div class="container">
       <br/>
       <div class="panel panel-default">
@@ -14,7 +15,7 @@
 			<div class="panel-body">
     {{Form::open(array('method'=>'POST','route'=>'delegado.guardar'))}}
 
-      <fieldset   style="border:2px groove #00FFFF; background:#DDFFFF;
+      <fieldset   style="border:2px groove #00FFFF; background:rgb(230,230,230,0.8);
                           -moz-border-radius:20px;
                           border-radius: 20px;
                           -webkit-border-radius: 20px;
@@ -39,7 +40,7 @@
           @endif
 
           <br>
-        
+
           {{Form::label('nombre','Nombre de delegado: ')}}
           {{Form::text('nombre','',[
             'class'=>'form-control '.( ($errors->isNotEmpty())?
@@ -51,7 +52,7 @@
             {{$errors->has('nombre')?$errors->first('nombre'):'¡Se ve bien!'}}
           </div>
           @endif
-        
+
         <br>
         <div class="form-group">
           {{Form::label('ap_paterno','Apellido paterno: ')}}
@@ -94,7 +95,7 @@
             {{$errors->has('fecha_nacimiento')?$errors->first('fecha_nacimiento'):'¡Se ve bien!'}}
           </div>
           @endif <br>
- 
+
           {{Form::label('email','Correo electrónico: ')}}
           {{Form::text('email','',[
             'class'=>'form-control '.( ($errors->isNotEmpty())?
@@ -108,7 +109,7 @@
           @endif
           <br>
 
-        
+
           {{Form::label('user','Nombre de Usuario')}}
           {{Form::text('user','',[
             'class'=>'form-control '.( ($errors->isNotEmpty())?
@@ -120,7 +121,7 @@
             {{$errors->has('user')?$errors->first('user'):'¡Se ve bien!'}}
           </div>
           @endif
-        
+
         <br>
         <div class="form-group">
           {{Form::label('password','Contraseña: ')}}
@@ -154,9 +155,9 @@
         </div>
 
       </div>
-      
-      {{Form::button('Borrar',['type'=>"reset",'class'=>"btn btn-danger"])}}
-      {{Form::button('Guardar',['type'=>"submit",'class'=>"btn btn-success"])}}
+
+      {{Form::button('Borrar',['type'=>"reset",'class'=>"btn btn-danger",'style'=>'width:150px;height:35px'])}}
+      {{Form::button('Guardar',['type'=>"submit",'class'=>"btn btn-success",'style'=>'width:150px;height:35px'])}}
 
       </div>
       </div>

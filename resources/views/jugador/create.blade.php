@@ -7,6 +7,7 @@
     <title>Insertar jugador</title>
   </head>
   <body>
+    @extends ('layout3')
     <div class="container">
       <br/>
       <div class="panel panel-default">
@@ -14,7 +15,7 @@
 			<div class="panel-body">
     {{Form::open(array('method'=>'POST','route'=>'jugador.guardar'))}}
 
-      <fieldset   style="border:2px groove #00FFFF; background:#DDFFFF;
+      <fieldset   style="border:2px groove #00FFFF; background:rgb(230,230,230,0.70);
                           -moz-border-radius:20px;
                           border-radius: 20px;
                           -webkit-border-radius: 20px;
@@ -39,7 +40,7 @@
           @endif
 
           <br>
-        
+
           {{Form::label('nombre','Nombre de jugador: ')}}
           {{Form::text('nombre','',[
             'class'=>'form-control '.( ($errors->isNotEmpty())?
@@ -51,7 +52,7 @@
             {{$errors->has('nombre')?$errors->first('nombre'):'¡Se ve bien!'}}
           </div>
           @endif
-        
+
         <br>
         <div class="form-group">
           {{Form::label('ap_paterno','Apellido paterno: ')}}
@@ -94,7 +95,7 @@
             {{$errors->has('fecha_nacimiento')?$errors->first('fecha_nacimiento'):'¡Se ve bien!'}}
           </div>
           @endif <br>
- 
+
           {{Form::label('email','Correo electrónico: ')}}
           {{Form::text('email','',[
             'class'=>'form-control '.( ($errors->isNotEmpty())?
@@ -129,11 +130,11 @@
                 <option value='{{$equipo->id}}'>{{$equipo->nombre_equipo}}</option>
                 @endforeach
               </select>
-               
-              
+
+
       </div>
-      
-      
+
+
       {{Form::button('Borrar',['type'=>"reset",'class'=>"btn btn-danger"])}}
       {{Form::button('Guardar',['type'=>"submit",'class'=>"btn btn-success"])}}
 

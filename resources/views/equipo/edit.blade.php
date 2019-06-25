@@ -7,6 +7,8 @@
     <title>Editar equipo</title>
   </head>
   <body>
+    @extends ('layout')
+    <br>
     <div class="container">
       <br/>
       <div class="panel panel-default">
@@ -14,7 +16,7 @@
       <div class="panel-body">
     {{Form::open(array('method'=>'POST','route'=>'equipo.actualizar'))}}
 
-      <fieldset   style="border:2px groove #00FFFF; background:#DDFFFF;
+      <fieldset   style="border:2px groove #00FFFF; background:rgb(230,230,230,0.70);
                           -moz-border-radius:20px;
                           border-radius: 20px;
                           -webkit-border-radius: 20px;
@@ -35,7 +37,7 @@
           <div class="{{($errors->has('nombre_equipo'))? 'in':''}}valid-feedback">
             {{$errors->has('nombre_equipo')?$errors->first('nombre_equipo'):'¡Se ve bien!'}}
           </div>
-          @endif 
+          @endif
         <br>
         <div class="form-group">
 
@@ -54,23 +56,23 @@
           </div>
           @endif
         </div>
-        
+
 
         <div class="input-group mb-2">
               <select class="form control" name='idde'>
                 @foreach($datos['delegados'] as $delegado)
                 <option value='{{$delegado->idde}}'>{{$delegado->nombre}} {{$delegado->ap_paterno}} {{$delegado->ap_materno}}</option>
                 @endforeach
-              </select>  
-                
-        </div>      
-      </div>
-      
-      {{Form::hidden('id', $datos['equipos']->id )}}
-      {{Form::button('Borrar',['type'=>"reset",'class'=>"btn btn-danger"])}}
-      {{Form::button('Guardar',['type'=>"submit",'class'=>"btn btn-success"])}}
+              </select>
 
-      </div> 
+        </div>
+      </div>
+
+      {{Form::hidden('id', $datos['equipos']->id )}}
+      {{Form::button('Borrar',['type'=>"reset",'class'=>"btn btn-danger",'style'=>'width:150px;height:35px'])}}
+      {{Form::button('Guardar',['type'=>"submit",'class'=>"btn btn-success",'style'=>'width:150px;height:35px'])}}
+
+      </div>
       </div>
     </fieldset>
 

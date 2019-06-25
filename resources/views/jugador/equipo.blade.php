@@ -7,6 +7,7 @@
     <title>Verificar equipo</title>
   </head>
   <body>
+    @extends ('layout3')
     <div class="container">
       <br/>
       <div class="panel panel-default">
@@ -24,19 +25,19 @@
       <div class="panel panel-default">
       <div class="panel-body">
 
-      
-        
+
+
               <select name='id'>
                 @foreach($equipos as $equipo)
                 <option value='{{$equipo->id}}'>{{$equipo->nombre_equipo}}</option>
                 @endforeach
-              </select>  
+              </select>
                 @if(session('mensaje'))
                   {{ session('mensaje') }} <br>
-                @endif        
-      
-      
-      
+                @endif
+
+
+
       {{Form::button('Seleccionar',['type'=>"submit",'class'=>"btn btn-success"])}}
 
       </div>

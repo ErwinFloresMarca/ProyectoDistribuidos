@@ -135,10 +135,10 @@ class FixtureController extends Controller
       $fix=Fixture::find($id);
       return view('fixture.resultados')->with('fixture',$fix);
     }
-    public function destroy(Request $request)
+    public function destroy($id)
     {
         //
-        $gs=Fixture::find(Crypt::decrypt($request['id']))->grupos()->get();
+        $gs=Fixture::find(Crypt::decrypt($id))->grupos()->get();
         foreach ($gs as $g) {
           $as=$g->actividades()->get();
           foreach ($as as $a) {
@@ -149,7 +149,7 @@ class FixtureController extends Controller
           }
           $g->delete();
         }
-        Fixture::destroy(Crypt::decrypt($request['id']));
+        Fixture::destroy(Crypt::decrypt($id));
         return redirect('fixture')->with('estado','El fixture fue eliminado exitosamente!!!');
     }
 }

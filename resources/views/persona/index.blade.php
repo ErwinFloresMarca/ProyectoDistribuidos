@@ -12,13 +12,13 @@
 <body>
 	<div class="container" class="panel-defauld" >
 				<div class="panel-body">
-        <fieldset   style="border:1px groove #2B0E34; background:#DFFFFF;
+        <fieldset   style="border:1px groove #2B0E34; background:rgb(230,230,230,0.8);
                             -moz-border-radius:30px;
                             border-radius: 20px;
                             -webkit-border-radius: 30px;
                             padding: 23px;
 							">
-		
+
         <legend class="w-auto" align="center"> <h1 class='display-4 text-info'>Lista de Personas</h1></legend>
 
 		<table  class="table table-striped"  >
@@ -45,7 +45,7 @@
 					<td> {{ $persona -> ap_materno }} </td>
 					<td> {{ $persona -> fecha_nacimiento}} </td>
 					<td> {{ $persona -> email }} </td>
-					<td> <a href="persona/edit/{{$persona->id}}" class="btn btn-primary"> Editar Datos </a> 
+					<td> <a href="persona/edit/{{$persona->id}}" class="btn btn-primary"> Editar Datos </a>
 					<a href="persona/eliminar/{{ $persona->id}}" class="btn btn-danger btn-primary"  onclick="return confirm ('¿Desea eliminar a esta persona?')"> Eliminar </a>
 				    </td>
 				</tr>

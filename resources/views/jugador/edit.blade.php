@@ -7,6 +7,7 @@
     <title>Editar jugador</title>
   </head>
   <body>
+    @extends ('layout3')
     <div class="container">
       <br/>
       <div class="panel panel-default">
@@ -39,7 +40,7 @@
           @endif
 
           <br>
-        
+
           {{Form::label('nombre','Nombre de jugador: ')}}
           {{Form::text('nombre',$datos['persona']->nombre,[
             'class'=>'form-control '.( ($errors->isNotEmpty())?
@@ -51,7 +52,7 @@
             {{$errors->has('nombre')?$errors->first('nombre'):'¡Se ve bien!'}}
           </div>
           @endif
-        
+
         <br>
         <div class="form-group">
           {{Form::label('ap_paterno','Apellido paterno: ')}}
@@ -95,7 +96,7 @@
             {{$errors->has('fecha_nacimiento')?$errors->first('fecha_nacimiento'):'¡Se ve bien!'}}
           </div>
           @endif <br>
- 
+
           {{Form::label('email','Correo electrónico: ')}}
           {{Form::text('email',$datos['persona']->email,[
             'class'=>'form-control '.( ($errors->isNotEmpty())?
@@ -130,10 +131,10 @@
                 <option value='{{$equipo->ideq}}'>{{$equipo->nombre_equipo}}</option>
                 @endforeach
               </select>
-               
-              
+
+
       </div>
-      
+
       {{Form::hidden('idpe', $datos['persona']->id )}}
       {{Form::hidden('idju', $datos['jugador']->id )}}
       {{Form::button('Borrar',['type'=>"reset",'class'=>"btn btn-danger"])}}

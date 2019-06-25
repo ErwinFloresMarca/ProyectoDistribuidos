@@ -3,9 +3,10 @@
 <head>
 	@extends('layout')
 	<title>nuevo arbitro</title>
-	 
+
 </head>
 <body>
+	@extends ('layout')
 {{Form::open(array('method'=>'POST','route'=>'arbitro.guardar'))}}
           {{Form::hidden('id', $persona->id )}}
 		{{ csrf_field() }}
