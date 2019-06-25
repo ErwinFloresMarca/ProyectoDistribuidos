@@ -34,20 +34,18 @@
       use Illuminate\Support\Facades\Crypt;
       $i=1;
       ?>
-      @foreach($datos['equipos'] as $equipo)
+      @foreach($equipos as $equipo)
       <tr>
         <td>{{$i++}}</td> 
         <td>{{$equipo->nombre_equipo}}</td> 
         <td>{{$equipo->color}}</td>
-        @foreach($datos['delegados'] as $delegado)
-        <td>{{$delegado->nombre}} {{$delegado->ap_paterno}} {{$delegado->ap_materno}}</td>
-        @endforeach
+        <td>{{$equipo->nombre}} {{$equipo->ap_paterno}} {{$equipo->ap_materno}}</td>
         <td>
-          <a href="equipo/editar/{{$equipo->id}}"
+          <a href="equipo/editar/{{$equipo->ideq}}"
               target="_blank"
               class="btn btn-default btn-primary">Editar</i>
           </a>
-          <a href="equipo/eliminar/{{$equipo->id}}"
+          <a href="equipo/eliminar/{{$equipo->ideq}}"
              onclick = "return confirm ('¿Eliminar equipo?')"
             class="btn btn-danger btn-xs">Eliminar</i>
           </a>

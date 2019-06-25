@@ -25,6 +25,89 @@
 			<div class="panel-body">
 
       <div class="form-group">
+
+          {{Form::label('ci','C.I.: ')}}
+          {{Form::number('ci','',[
+            'class'=>'form-control '.( ($errors->isNotEmpty())?
+                (($errors->has('ci'))? 'is-invalid' : 'is-valid'): '' ),
+            'id'=>"ci",
+            'placeholder'=>"CI delegado"]) }}
+          @if(($errors->isNotEmpty()))
+          <div class="{{($errors->has('ci'))? 'in':''}}valid-feedback">
+            {{$errors->has('ci')?$errors->first('ci'):'¡Se ve bien!'}}
+          </div>
+          @endif
+
+          <br>
+        
+          {{Form::label('nombre','Nombre de delegado: ')}}
+          {{Form::text('nombre','',[
+            'class'=>'form-control '.( ($errors->isNotEmpty())?
+                (($errors->has('nombre'))? 'is-invalid' : 'is-valid'): '' ),
+            'id'=>"nombre",
+            'placeholder'=>"Nombre de delegado"]) }}
+          @if(($errors->isNotEmpty()))
+          <div class="{{($errors->has('nombre'))? 'in':''}}valid-feedback">
+            {{$errors->has('nombre')?$errors->first('nombre'):'¡Se ve bien!'}}
+          </div>
+          @endif
+        
+        <br>
+        <div class="form-group">
+          {{Form::label('ap_paterno','Apellido paterno: ')}}
+          {{Form::text('ap_paterno','',[
+            'class'=>'form-control '.(
+              ($errors->isNotEmpty())?
+            (($errors->has('ap_paterno'))? 'is-invalid' : 'is-valid'): '' ),
+            'id'=>"ap_paterno",
+            'placeholder'=>"Intro apellido"
+          ] ) }}
+          @if(($errors->isNotEmpty()))
+          <div class="{{($errors->has('ap_paterno'))? 'in':''}}valid-feedback">
+            {{$errors->has('ap_paterno')?$errors->first('ap_paterno'):'¡Se ve bien!'}}
+          </div>
+          @endif
+        </div>
+        <div class="form-group">
+          {{Form::label('ap_materno','Apellido materno: ')}}
+          {{Form::text('ap_materno','',[
+            'class'=>'form-control '.(
+              ($errors->isNotEmpty())?
+            (($errors->has('ap_materno'))? 'is-invalid' : 'is-valid'): '' ),
+            'id'=>"ap_materno",
+            'placeholder'=>"Intro apellido"
+          ] ) }}
+          @if(($errors->isNotEmpty()))
+          <div class="{{($errors->has('ap_materno'))? 'in':''}}valid-feedback">
+            {{$errors->has('ap_materno')?$errors->first('ap_materno'):'¡Se ve bien!'}}
+          </div>
+          @endif
+        </div>
+
+        {{Form::label('fecha_nacimiento','Fecha de nacimiento: ')}}
+          {{Form::date('fecha_nacimiento','',[
+            'class'=>'form-control '.( ($errors->isNotEmpty())?
+                (($errors->has('fecha_nacimiento'))? 'is-invalid' : 'is-valid'): '' ),
+            'id'=>"fecha_nacimiento",]) }}
+          @if(($errors->isNotEmpty()))
+          <div class="{{($errors->has('fecha_nacimiento'))? 'in':''}}valid-feedback">
+            {{$errors->has('fecha_nacimiento')?$errors->first('fecha_nacimiento'):'¡Se ve bien!'}}
+          </div>
+          @endif <br>
+ 
+          {{Form::label('email','Correo electrónico: ')}}
+          {{Form::text('email','',[
+            'class'=>'form-control '.( ($errors->isNotEmpty())?
+                (($errors->has('email'))? 'is-invalid' : 'is-valid'): '' ),
+            'id'=>"email",
+            'placeholder'=>"Correo jugador"]) }}
+          @if(($errors->isNotEmpty()))
+          <div class="{{($errors->has('email'))? 'in':''}}valid-feedback">
+            {{$errors->has('email')?$errors->first('email'):'¡Se ve bien!'}}
+          </div>
+          @endif
+          <br>
+
         
           {{Form::label('user','Nombre de Usuario')}}
           {{Form::text('user','',[
@@ -69,13 +152,9 @@
           </div>
           @endif
         </div>
-        <div class="form-group">
-          {{Form::label('persona','Persona: ')}}
-          {{Form::text('persona',$persona->nombre.' '.$persona->ap_paterno.' '.$persona->ap_materno,
-                      ['id'=>"persona",'disabled'] ) }}
-        </div>
+
       </div>
-      {{Form::hidden('id', $persona->id )}}
+      
       {{Form::button('Borrar',['type'=>"reset",'class'=>"btn btn-danger"])}}
       {{Form::button('Guardar',['type'=>"submit",'class'=>"btn btn-success"])}}
 

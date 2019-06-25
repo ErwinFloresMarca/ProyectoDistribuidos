@@ -11,10 +11,8 @@
       function suma(obj)
       {
           total=document.getElementById("numEquipos").value;
-          if(obj.checked)
-              total++;
-          else
-              total--;
+          if(obj.checked) total++;
+          else total--;
           txttotal=total+"";
           if (txttotal=="0"){ txttotal="0";}
           document.getElementById("numEquipos").value=txttotal;
@@ -22,13 +20,20 @@
       function sumah(obj)
       {
           total=document.getElementById("cantPD").value;
-          if(obj.checked)
-              total++;
-          else
-              total--;
+          if(obj.checked) total++;
+          else total--;
           txttotal=total+"";
           if (txttotal=="0"){ txttotal="0";}
           document.getElementById("cantPD").value=txttotal;
+      }
+      function sumaAr(obj)
+      {
+          total=document.getElementById("numArbitros").value;
+          if(obj.checked) total++;
+          else total--;
+          txttotal=total+"";
+          if (txttotal=="0"){ txttotal="0";}
+          document.getElementById("numArbitros").value=txttotal;
       }
     </script>
     <div class="container">
@@ -37,7 +42,7 @@
 
 			<div class="panel-body">
 
-    {{Form::open(array('method'=>'POST','route'=>'fixture.guardar','class'=>'needs-validation'))}}
+    {{Form::open(array('method'=>'POST','route'=>'fixture.guardar','class'=>'needs-validation','novalidate'))}}
 
       <fieldset   style="border:2px groove #00FFFF; background:#DDFFFF;
                           -moz-border-radius:20px;
@@ -61,7 +66,7 @@
             'class'=>'form-control '.( ($errors->isNotEmpty())?
                 (($errors->has('nombre'))? 'is-invalid' : 'is-valid'): '' ),
             'id'=>"nombre",
-            'placeholder'=>"Nombre Fixture"]) }}
+            'placeholder'=>"Nombre Fixture",'required']) }}
           @if(($errors->isNotEmpty()))
           <div class="{{($errors->has('nombre'))? 'in':''}}valid-feedback">
             {{$errors->has('nombre')?$errors->first('nombre'):'¡Se ve bien!'}}
@@ -86,7 +91,7 @@
         </div>
       </div>
       <div class="form-row">
-        <div class="col-md-4 mb-3 was-validated ">
+        <div class="col-md-4 mb-3 ">
           <?php $es=App\Equipo::all(); ?>
           <center><h4 class='center'>
             <span class="badge badge-secondary ">Equipos</span>
@@ -94,7 +99,8 @@
               {{Form::text('numEquipo',count($es),['id'=>'numEquipos','size'=>'1','style'=>'border:none; background:inherit; font-weight: bold; color: white;','readonly'])}}
             </span>
           </h4></center>
-          <div class='table-responsive' style='height: 240px;'>
+
+          <div class='table-responsive was-validated' style='height: 240px;'>
           <table class="table table-striped table-sm" >
             <tbody>
 
@@ -110,7 +116,13 @@
               @endforeach
             </tbody>
           </table>
+
         </div>
+          @if(($errors->has('numEquipo')))
+          <div class=" {{($errors->has('numEquipo'))? 'alert alert-danger':''}}" role="alert">
+            {{$errors->first('numEquipo')}}
+          </div>
+          @endif
         </div>
 
         <div class="col-md-4 mb-3">
@@ -131,9 +143,14 @@
               @endfor
             </tbody>
           </table>
+          @if(($errors->has('cantPD')))
+          <div class=" {{($errors->has('cantPD'))? 'alert alert-danger':''}}" role="alert">
+            {{$errors->first('cantPD')}}
+          </div>
+          @endif
         </div>
 
-        <div class="col-md-4 mb-3 was-validated">
+        <div class="col-md-4 mb-3 ">
           <div class="form-group">
             <?php
             $listArb=array();
@@ -141,12 +158,35 @@
             foreach ($arbitros as $arbitro){
               $per=$arbitro->persona()->get()->last();
               $listArb[$arbitro->id]=''.$per->nombre.' '.$per->ap_paterno;
-            } ?>
-            <h4 class='center'>
+            }
+            ?>
+            <center><h4 class='center'>
               <span class="badge badge-secondary ">Arbitros</span>
-            </h4>
-            {{Form::select('arbitro_id', $listArb,null,['placeholder'=>'Selecione un arbitro','class'=>'custom-select','required'])}}
-            <div class="invalid-feedback">Seleccione un Arbitro</div>
+              <span class="badge badge-danger " >
+                {{Form::text('numArbitros','0',['id'=>'numArbitros','size'=>'1','style'=>'border:none; background:inherit; font-weight: bold; color: white;','readonly'])}}
+              </span>
+            </h4></center>
+            <div class='table-responsive' style='height: 200px;'>
+            <table class="table table-striped table-sm" >
+              <tbody>
+
+                @foreach($listArb as $id_ar=>$nom_ar)
+                <tr>
+                  <td>
+                    <div class="custom-control custom-checkbox mb-3">
+                      {{Form::checkbox('arbitros[]', $id_ar , false,['id'=>'arbitro'.$id_ar,'class'=>'custom-control-input','onChange'=>'sumaAr(this)','required'])}}
+                      <label class="custom-control-label" style='font-weight: bold;' for="arbitro{{$id_ar}}">{{$nom_ar}}</label>
+                    </div>
+                  </td>
+                </tr>
+                @endforeach
+              </tbody>
+            </table>
+            @if(($errors->has('numArbitros')))
+            <div class=" {{($errors->has('numArbitros'))? 'alert alert-danger':''}}" role="alert">
+              {{$errors->first('numArbitros')}}
+            </div>
+            @endif
           </div>
           <div class="form-group">
             <h4 class='center'>
@@ -156,10 +196,10 @@
           </div>
         </div>
       </div>
+      </div>
       {{Form::button('Borrar',['type'=>"reset",'class'=>"btn btn-danger"])}}
       {{Form::button('Guardar',['type'=>"submit",'class'=>"btn btn-success"])}}
-
-      </div>
+    </div>
       </div>
     </fieldset>
 

@@ -14,14 +14,13 @@ class EquipoController extends Controller
      */
     public function index()
     {
-        $equipo = Equipo::all();
-        $delegado = DB::table('delegados')
+        //$equipo = Equipo::all();
+        $equipo = DB::table('delegados')
                     ->join('equipos','equipos.delegado_id','delegados.id')
                     ->join('personas','delegados.persona_id','personas.id')
-                    ->select('user', 'persona_id','nombre','ap_paterno','ap_materno')
+                    ->select('user', 'persona_id','nombre','ap_paterno','ap_materno','nombre_equipo','color','equipos.id as ideq')
                     ->get();
-        return view('equipo.index')->with('datos',array('equipos' => $equipo,
-                                                        'delegados' => $delegado));
+        return view('equipo.index')->with('equipos',$equipo);
     }
 
     /**
@@ -31,7 +30,7 @@ class EquipoController extends Controller
      */
     public function create()
     {
-        $delegado = DB::table('personas')//debemos usar "join"
+        $delegado = DB::table('personas')
                      ->join('delegados','delegados.persona_id',
                         'personas.id')
                      ->select('nombre','ap_paterno','ap_materno','delegados.id as idde')
@@ -59,17 +58,25 @@ class EquipoController extends Controller
 
         if($errores)
         {
-            $exisdelegado = Equipo::find($request['idde']);
-            if(!isset($exisdelegado))
+            //$exisdelegado = Equipo::find($request['idde']);
+            /*$exisdelegado = DB::table('equipos')
+                              ->where('equipos.delegado_id','=',$request['idde'])
+                              ->get();*/
+            
+            $exisdelegado = Equipo::where('delegado_id','=',$request['idde'])->get()->last();
+
+            if(!is_null($exisdelegado))
             {
+                return redirect('equipo/nuevo')->with('mensaje','El delegado ya está asociado a un equipo');
+            }
+            else{
                 $equipo = new Equipo;
                 $equipo->nombre_equipo = $request['nombre_equipo'];
                 $equipo->color = $request['color'];
                 $equipo->delegado_id = $request['idde'];
                 $equipo->save();
-            }
-            else{
-                return redirect('equipo/nuevo')->with('mensaje','El delegado ya está asociado a un equipo');
+                return redirect('equipo'); 
+                
             }
         }
 
@@ -129,16 +136,12 @@ class EquipoController extends Controller
 
         if($errores)
         {
-           
-            
-            
                 $equipo = Equipo::find($request['id']);
                 $equipo->nombre_equipo = $request['nombre_equipo'];
                 $equipo->color = $request['color'];
                 $equipo->delegado_id = $request['idde'];
                 $equipo->save();
                 return redirect('equipo');
-            
         }
     }
 
@@ -150,6 +153,7 @@ class EquipoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Equipo::destroy($id);
+        return redirect('equipo');
     }
 }
