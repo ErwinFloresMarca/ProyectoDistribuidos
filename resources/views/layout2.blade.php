@@ -39,9 +39,6 @@
                 <li class="nav-item active">
                      <a class="nav-link" href="{{ url('administrador') }}">Administradores</a>
                 </li>
-                <li class="nav-item active">
-                     <a class="nav-link" href="{{ url('arbitro') }}">Arbitros</a>
-                </li>
             </ul> 
         </div>
     </nav>

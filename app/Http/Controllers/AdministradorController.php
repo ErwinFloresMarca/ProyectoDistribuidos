@@ -35,12 +35,12 @@ class AdministradorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        $personas = Persona::find('id');
+        $persona = Persona::find($id);
         //dd($personas);
         //return;
-        return view('administrador.create')->with('personas',$personas);
+        return view('administrador.create')->with('persona',$persona);
     }
 
     /**
@@ -52,23 +52,21 @@ class AdministradorController extends Controller
     public function store(Request $request)
     {
         $reglas = array(
-            'user' => 'required|alpha',
+            'user' => 'required|String',
             'password' => 'required|alpha_num',
-            'password_confir' => 'required|same:password' 
-            );
+            'password_confir' => 'required|same:password' );
         $mensajes = array(
             'user.required' => 'El campo nombre de administrador es obligatorio',
-            'user.alpha' => 'El nombre de administrador no debe contener espacios',
+            'user.String' => 'El nombre de administrador no debe contener espacios',
             'password.required' => 'La contraseña es obligatoria',
             'password.alpha_num' => 'La contraseña debe tener números y letras',
             'password_confir.required' => 'La confirmación es requerida',
             'password_confir.same' => 'las contraseñas no coinciden', );
          $this->validate($request,$reglas,$mensajes);
-        
-            $administrador = new administrador;
+            $administrador = new Administrador;
             $administrador->user = $request['user'];
             $administrador->password = $request['password'];
-            $administrador->persona_id = $request['id']; 
+            $administrador->persona_id = $request['persona_id']; 
             $administrador->save();
             return redirect('administrador');
         
@@ -117,14 +115,19 @@ class AdministradorController extends Controller
             'password.required' => 'La contraseña es obligatoria',
             'password.alpha_num' => 'La contraseña debe tener números y letras',
             'password_confir.required' => 'La confirmación es requerida',
-            'password_confir.same' => 'las contraseñas no coinciden', );
+            'password_confir.same' => 'Las contraseñas no coinciden', );
          $this->validate($request,$reglas,$mensajes);
-        
+
             $administrador = Administrador::find($request['id']);
-            $administrador->user = $request['user'];
+            $administrador->user=$request->input('user');
+            $administrador->password=$request->input('password');
+            $administrador->persona_id=$request->input('persona_id');
+            $administrador->save();
+            
+            /*$administrador->user = $request['user'];
             $administrador->password = $request['password'];
             $administrador->persona_id = $request['id']; 
-            $administrador->save();
+            $administrador->save();*/
             return redirect('administrador');
     }
 
@@ -138,5 +141,10 @@ class AdministradorController extends Controller
     {
         Administrador::destroy($id);
         return redirect ('administrador');
+    }
+
+    public function mostrar_resultados (){
+
+        return view('partidos.result');
     }
 }

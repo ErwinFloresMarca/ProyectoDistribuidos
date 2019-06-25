@@ -27,19 +27,13 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="nav nav-pills">
-                 <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          Persona
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                          <a class="dropdown-item" href="{{url('persona/nuevo')}}">Nuevo</a>
-                          <a class="dropdown-item" href="{{ url('persona') }}">Lista</a>
-                        </div>
+                <li class="nav-item active">
+                     <a class="nav-link" href="{{ url('equipo') }}">Equipo</a>
                 </li>
                 <li class="nav-item active">
-                     <a class="nav-link" href="{{ url('administrador') }}">Administradores</a>
+                     <a class="nav-link" href="{{ url('fixture') }}">Fixture</a>
                 </li>
-                <li class="nav-item active">
+                 <li class="nav-item active">
                      <a class="nav-link" href="{{ url('arbitro') }}">Arbitros</a>
                 </li>
             </ul> 

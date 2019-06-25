@@ -7,6 +7,8 @@
     <title>Equipo</title>
   </head>
   <body>
+      @extends ('layout3')
+      <br><br>
     <div class="container">
       <br/>
       <div class="panel panel-default">

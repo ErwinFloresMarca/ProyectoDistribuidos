@@ -57,7 +57,6 @@
              onclick="return confirm ('¿ELIMINAR DELEGADO?')"
              class="btn btn-danger btn-primary" >Eliminar</i>
           </a>
-          
         </td>
       </tr>
       @endforeach

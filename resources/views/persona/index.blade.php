@@ -5,10 +5,12 @@
 	<br>
 	<br>
 	<br>
+	<link rel="stylesheet" href="/css/bootstrap.min.css" >
+	 <link rel="stylesheet" href="css/style.css">
 	<title>Personas que participaran en el fixture</title>
 </head>
 <body>
-	<div class="container" class="panel-defauld">
+	<div class="container" class="panel-defauld" >
 				<div class="panel-body">
         <fieldset   style="border:1px groove #2B0E34; background:#DFFFFF;
                             -moz-border-radius:30px;
@@ -16,7 +18,9 @@
                             -webkit-border-radius: 30px;
                             padding: 23px;
 							">
-        <legend class="w-auto"><h1 class='display-4 text-info text-center'>Lista de Personas</h1></legend>
+		
+        <legend class="w-auto" align="center"> <h1 class='display-4 text-info'>Lista de Personas</h1></legend>
+
 		<table  class="table table-striped"  >
 			<thead>
 				<tr class="active">

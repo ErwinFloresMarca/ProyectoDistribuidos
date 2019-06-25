@@ -35,10 +35,13 @@ class ArbitroController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
        
-        return view('arbitro.create');
+        $persona = Persona::find($id);
+        //dd($personas);
+        //return;
+        return view('arbitro.create')->with('persona',$persona);
     }
 
     /**
@@ -49,7 +52,24 @@ class ArbitroController extends Controller
      */
     public function store(Request $request)
     {
-        //
+          $reglas = array(
+            'user' => 'required|String',
+            'password' => 'required|alpha_num',
+            'password_confir' => 'required|same:password' );
+        $mensajes = array(
+            'user.required' => 'El campo nombre de administrador es obligatorio',
+            'user.String' => 'El nombre de administrador no debe contener espacios',
+            'password.required' => 'La contraseña es obligatoria',
+            'password.alpha_num' => 'La contraseña debe tener números y letras',
+            'password_confir.required' => 'La confirmación es requerida',
+            'password_confir.same' => 'las contraseñas no coinciden', );
+         $this->validate($request,$reglas,$mensajes);
+            $arbitro = new Arbitro;
+            $arbitro->user = $request['user'];
+            $arbitro->password = $request['password'];
+            $arbitro->persona_id = $request['persona_id']; 
+            $arbitro->save();
+            return redirect('arbitro');
     }
 
     /**
@@ -84,7 +104,31 @@ class ArbitroController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+         $reglas = array(
+            'user' => 'required|alpha',
+            'password' => 'required|alpha_num',
+            'password_confir' => 'required|same:password' 
+            );
+        $mensajes = array(
+            'user.required' => 'El campo nombre de arbitro es obligatorio',
+            'user.alpha' => 'El nombre de arbitro no debe contener espacios',
+            'password.required' => 'La contraseña es obligatoria',
+            'password.alpha_num' => 'La contraseña debe tener números y letras',
+            'password_confir.required' => 'La confirmación es requerida',
+            'password_confir.same' => 'Las contraseñas no coinciden', );
+         $this->validate($request,$reglas,$mensajes);
+
+            $arbitro = Arbitro::find($request['id']);
+            $arbitro->user=$request->input('user');
+            $arbitro->password=$request->input('password');
+            $arbitro->persona_id=$request->input('persona_id');
+            $arbitro->save();
+            
+            /*$arbitro->user = $request['user'];
+            $arbitro->password = $request['password'];
+            $arbitro->persona_id = $request['id']; 
+            $arbitro->save();*/
+            return redirect('arbitro');
     }
 
     /**

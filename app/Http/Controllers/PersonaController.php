@@ -50,10 +50,7 @@ class PersonaController extends Controller
             'nombre.required' => 'El campo Nombre es necesario llenarlo',
             'ap_materno.required' => 'El campo Apellido Materno es necesario llenarlo',
             'email.required' => 'Debe colocar su correo electronico',);
-
-           $errores = $this->validate($request,$reglas,$mensaje);
-           if ($errores) 
-           {
+            $this->validate($request,$reglas,$mensaje);
             $per=new Persona;
             $per->ci=$request['ci'];
             $per->nombre=$request['nombre'];
@@ -63,7 +60,7 @@ class PersonaController extends Controller
             $per->email=$request['email'];
             $per->save();
             return redirect('persona');
-           }
+           
     }
 
     /**
@@ -100,17 +97,14 @@ class PersonaController extends Controller
     {
         //
             $reglas=array(
-              
               'nombre'=>'required|string|min:3|max:30',
               'ap_paterno'=>'required|string|min:4|max:15',
               'ap_materno'=>'required|string|min:4|max:15',
               'fecha_nacimiento'=>'required|date',
-              
-             );
+             ); 
            $mensaje = array(
             'nombre.required' => 'El campo Nombre es necesario llenarlo',
             'ap_materno.required' => 'El campo Apellido Materno es necesario llenarlo',);
-
            $this->validate($request,$reglas,$mensaje);
            
            //dd($request);

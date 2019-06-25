@@ -1,23 +1,20 @@
 <!DOCTYPE html>
 <html>
-
 @extends('layout')
 @section('content')
 <head>
 	<title></title>
 </head>
 <body>
-
 {{ Form::open(array('method'=>'POST','route'=>'persona.actualizar')) }}
- {{ Form::hidden ('id', $persona['id'])}}
+{{ Form::hidden ('id', $persona['id'])}}
  {{ csrf_field() }}
  <br><br>
-
     <div class="card">
         <h4 class="card-header">Editar Persona</h4>
         <div class="card-body">
                 <div class="form-group">
-                    <label for="ci">Carnet de Identidad:</label>
+                    <label for="ci" >Carnet de Identidad:</label>
                     <input type="number" class="form-control" name="ci" id="ci"  value="{{ old('ci', $persona->ci) }}" disabled="ci">
                 </div>
                 <div class="form-group">

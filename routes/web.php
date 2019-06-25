@@ -12,8 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
-
+    return view('index');
 });
 //Inicio Parte de Yessi
 //parte de persona 
