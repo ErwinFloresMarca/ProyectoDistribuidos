@@ -25,7 +25,7 @@ Route::post('/login', function (Request $request) {
     $deleg=DB::table('delegados')->where('delegados.user',$nomUser)->where('delegados.password',$passw)->get();
     $arbit=DB::table('arbitros')->where('arbitros.user',$nomUser)->where('arbitros.password',$passw)->get();
     if(count($admin)==1){
-      return view('fixture.index')->with('fixtures',App\Fixture::all());
+      return redirect('/fixture');
     }
     elseif(count($deleg)==1){
       return redirect('/jugador')->with('delegado',$deleg->last());

@@ -21,35 +21,54 @@ class Grupo extends Model
       foreach ($acts as $act) {
         $partidos=$act->partidos()->get();
         foreach ($partidos as $partido) {
+          //solucion
+
           $l=$partido->local_id;
           $v=$partido->visitante_id;
           $gl=$partido->goles_local;
           $gv=$partido->goles_visitante;
           $ganador=($gl>$gv)?1:(($gv>$gl)?2:3);
+          if($partido->estado==0)
+            $ganador=2;
           if(isset($equipos[$l])){
             $equipos[$l]['puntos']+=($ganador==1)? 3:(($ganador==2)? 0: 1);
-            $equipos[$l]['PJ']++;
+            if($partido->estado==1)
+              $equipos[$l]['PJ']++;
             $equipos[$l]['PG']+=($ganador==1)? 1:0;
             $equipos[$l]['PE']+=($ganador==3)? 1:0;
+            if($partido->estado==0)
+              $ganador=1;
             $equipos[$l]['PP']+=($ganador==2)? 1:0;
             $equipos[$l]['GF']+=$gl;
             $equipos[$l]['GC']+=$gv;
           }
           else{
+            if($partido->estado==0)
+              $ganador=2;
             $equipos[$l]['id']=$l;
             $equipos[$l]['puntos']=($ganador==1)? 3:(($ganador==2)? 0: 1);
-            $equipos[$l]['PJ']=1;
+            if($partido->estado==0)
+              $equipos[$l]['PJ']=0;
+            else
+              $equipos[$l]['PJ']=1;
             $equipos[$l]['PG']=($ganador==1)? 1:0;
             $equipos[$l]['PE']=($ganador==3)? 1:0;
+            if($partido->estado==0)
+              $ganador=1;
             $equipos[$l]['PP']=($ganador==2)? 1:0;
             $equipos[$l]['GF']=$gl;
             $equipos[$l]['GC']=$gv;
           }
+          if($partido->estado==0)
+            $ganador=1;
           if(isset($equipos[$v])){
             $equipos[$v]['puntos']+=($ganador==2)? 3:(($ganador==1)? 0: 1);
+            if($partido->estado==1)
             $equipos[$v]['PJ']++;
             $equipos[$v]['PG']+=($ganador==2)? 1:0;
             $equipos[$v]['PE']+=($ganador==3)? 1:0;
+            if($partido->estado==0)
+              $ganador=2;
             $equipos[$v]['PP']+=($ganador==1)? 1:0;
             $equipos[$v]['GF']+=$gv;
             $equipos[$v]['GC']+=$gl;
@@ -57,14 +76,22 @@ class Grupo extends Model
           else{
             $equipos[$v]['id']=$v;
             $equipos[$v]['puntos']=($ganador==2)? 3:(($ganador==1)? 0: 1);
-            $equipos[$v]['PJ']=1;
+            if($partido->estado==1)
+              $equipos[$v]['PJ']=1;
+            else
+              $equipos[$v]['PJ']=0;
+            if($partido->estado==0)
+              $ganador=1;
             $equipos[$v]['PG']=($ganador==2)? 1:0;
             $equipos[$v]['PE']=($ganador==3)? 1:0;
+            if($partido->estado==0)
+              $ganador=2;
             $equipos[$v]['PP']=($ganador==1)? 1:0;
             $equipos[$v]['GF']=$gv;
             $equipos[$v]['GC']=$gl;
           }
         }
+
       }
       //ordenar resultados
       $equipos=array_values($equipos);

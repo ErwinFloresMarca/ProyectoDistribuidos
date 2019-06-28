@@ -125,7 +125,7 @@
         <br>
         <div class="form-group">
           {{Form::label('password','Contraseña: ')}}
-          {{Form::number('password','',[
+          {{Form::password('password',[
             'class'=>'form-control '.(
               ($errors->isNotEmpty())?
             (($errors->has('password'))? 'is-invalid' : 'is-valid'): '' ),
@@ -140,7 +140,7 @@
         </div>
         <div class="form-group">
           {{Form::label('password_confir','Confirmar contraseña: ')}}
-          {{Form::number('password_confir','',[
+          {{Form::password('password_confir',[
             'class'=>'form-control '.(
               ($errors->isNotEmpty())?
             (($errors->has('password_confir'))? 'is-invalid' : 'is-valid'): '' ),
